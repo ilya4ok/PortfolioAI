@@ -62,7 +62,7 @@ export const t = {
       ],
     },
     previews: [
-      { title: 'Personal AI Dashboard', hint: 'The original personal version — prompt caching cut API costs by 90%. Writing it up.' },
+      { title: 'Business Process Automation', hint: 'A manual process that ate 10+ hours a week — automated. Real client, real numbers.' },
       { title: 'Content on Autopilot', hint: 'Topic in, content out, published — no one touches it between start and finish.' },
       { title: 'Five Tools, One Workflow', hint: 'Typeform, Telegram, Sheets, Notion, Claude — connected into a single chain.' },
     ],
@@ -129,7 +129,7 @@ export const t = {
       ],
     },
     previews: [
-      { title: 'Особистий AI Dashboard', hint: 'Оригінальна особиста версія — prompt caching знизив витрати API на 90%. Пишу кейс.' },
+      { title: 'Автоматизація бізнес-процесів', hint: 'Ручний процес що поглинав 10+ годин на тиждень — автоматизований. Реальний клієнт, реальні цифри.' },
       { title: 'Контент на автопілоті', hint: 'Тема на вході, контент на виході, опублікований — ніхто не торкається між початком і кінцем.' },
       { title: "П'ять інструментів, один воркфлоу", hint: 'Typeform, Telegram, Sheets, Notion, Claude — з\'єднані в один ланцюг.' },
     ],

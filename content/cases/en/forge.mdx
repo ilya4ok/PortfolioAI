@@ -1,69 +1,50 @@
 ---
 slug: forge
 title: Forge — AI Productivity App
-description: Started as a personal AI coach. Friends saw it and wanted in. Rebuilt it for everyone — auth, database, real users, live product.
-metric: Side project → 10+ live users
+description: A personal productivity system with an AI coach, habit tracking, and a psychologist bot — built for myself, then opened up for others.
+metric: −60 min/week on planning & journaling
 tools: ["Claude API", "Supabase", "Next.js", "TypeScript", "Email API"]
 icon: Flame
 status: active
 ---
 
-## The origin
+## How it started
 
-I built the first version for myself. No signup. No database. Everything hardcoded for one person.
+I built the first version for myself. No sign-up, no database — just a tool that fit exactly how I work.
 
-It had an AI coach connected to my real schedule — it didn't just answer questions, it took actions: rescheduled tasks, tracked habits, and read my diary entries to respond like a psychologist who actually knew my week. XP, streaks, achievements. I used it every day.
+It had a journal, an AI coach that read my entries, habit tracking with streaks and XP, and a schedule I could update by just writing a message. I used it every day. It worked. Friends saw it and wanted the same thing.
 
-Then I showed it to friends. They wanted it too.
+## What it actually did for me
 
----
+**The psychologist bot changed how I processed problems.**
+Before, I'd write things down in a notebook — thoughts, blockers, things I was overthinking. It helped, but I was writing into a void. With Forge, the AI read what I wrote and responded with questions or observations based on patterns it noticed across previous entries. That feedback loop cut the time I spent stuck on a single problem from 30–40 minutes to under 10.
 
-## How it went: 4 steps
+**Planning went from friction to automatic.**
+Every week I'd spend 40–50 minutes figuring out what to do, in what order, and what was actually important versus what just felt urgent. With Forge I'd send my rough list of tasks and a few notes about the week, and the AI would return structured cards — prioritised, sorted, with time estimates. That process now takes about 8 minutes.
 
-**① The personal version worked too well**
+**Gamification made habits stick.**
+Progress tracking and achievement unlocks sound gimmicky until you notice you've kept a 30-day streak without thinking about it. The XP system made consistency feel like forward motion rather than discipline.
 
-The AI knew everything: my mood from journal entries, my task backlog, my schedule gaps. It acted on that context — not "here's advice" but "I've updated your Tuesday, here's why."
+## What changed when I opened it up
 
-That's when I realised the idea had legs beyond just me.
+Two things had to be rebuilt:
 
-**② The hard part — making personal code work for everyone**
+**Personal data → user accounts.** Everything that was hardcoded for me — my tracks, my context, my journal — had to become dynamic. Each user gets their own space, their own AI memory, their own data. Supabase Auth + row-level security made sure no one sees anyone else's journal.
 
-My name, my goals, my tracks were baked into the code. Every user needed their own space: their own AI context, their own diary, their own schedule. Nothing could be hardcoded anymore.
+**Browser storage → real database.** The original version lived in localStorage. Fine for one person. Not fine when someone clears their browser and loses three months of journal entries. Supabase solved this.
 
-The challenge wasn't just technical. It was keeping the feeling of the original — that the AI actually *knows* you — while making it work for a stranger on day one.
+Email notifications were added too — weekly summaries, streak reminders, achievement alerts.
 
-**③ What got rebuilt**
+## Launch
 
-Three things had to change completely:
-
-- **Auth** — users sign up, log in, own their data. Supabase handled identity and row-level security so no one sees anyone else's diary
-- **Database** — journal entries, habits, streaks, schedule — all moved from localStorage to Supabase. Data that persists, syncs, and survives a browser clear
-- **Email** — the AI doesn't only live in the chat window. Weekly summaries, streak reminders, and achievement unlocks go out automatically
-
-**④ Launch — two beta rounds, real bugs, real fixes**
-
-First beta found auth issues. Broke for some users on login. Fixed. Second round — smoother. Edge cases in the achievement system. Fixed.
-
-After the second round: stable enough to open up. Custom domain, live environment, real users.
-
----
+Two beta rounds. Real bugs found, real bugs fixed — auth issues on the first run, edge cases in the achievement system on the second. After that: stable enough to open up. Live domain, real users.
 
 ## What Forge does
 
-**AI diary with memory** — write about your day, the AI responds as a coach. It reads previous entries and builds a picture of your patterns over time. Not generic advice — responses shaped by what you've actually written.
+**AI journal** — write about your day, the AI responds as a coach. It reads previous entries and builds a picture of patterns over time. Not generic responses — shaped by what you've actually written over weeks.
 
-**Schedule in plain language** — describe your week, the AI organises it, flags what's urgent, and suggests where you're overloading yourself.
+**Smart scheduling** — describe your tasks and priorities in plain language, get back a structured plan with time estimates and what actually matters flagged.
 
-**Habits + gamification** — streaks, XP, achievement badges. The kind of system that makes you want to open the app tomorrow just to keep the streak alive.
+**Habit tracking + gamification** — streaks, XP, achievement badges. The kind of system that makes you want to come back tomorrow just to keep the streak alive.
 
-**Psychology mode** — the AI uses your journal context to ask the right questions at the right time. It notices when you've mentioned something three weeks in a row.
-
----
-
-## Who it's for
-
-People who want a tool that actually adapts to them — not a generic productivity app with empty fields to fill in, but a system that gets better the more you use it.
-
-Currently: 10+ registered users on a live domain. Real data going in, real patterns coming back.
-
-The original idea — an AI that knows your day and acts on it — survived the move from personal project to product.
+**Psychology mode** — the AI uses journal context to ask the right questions at the right time. It notices themes across entries that you might not see yourself.
