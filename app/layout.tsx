@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Syne } from 'next/font/google'
 import './globals.css'
 import PageTransition from '@/components/PageTransition'
+import { LangProvider } from '@/components/LangProvider'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -45,7 +46,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} h-full`}
     >
       <body className="min-h-full flex flex-col bg-bg-primary text-text-primary">
-        <PageTransition>{children}</PageTransition>
+        <LangProvider>
+          <PageTransition>{children}</PageTransition>
+        </LangProvider>
       </body>
     </html>
   )

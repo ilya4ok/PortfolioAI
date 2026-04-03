@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Loader2 } from 'lucide-react'
+import { t } from '@/lib/i18n'
+import type { Lang } from '@/lib/i18n'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -15,7 +17,8 @@ interface Errors {
   message?: string
 }
 
-export default function ContactForm() {
+export default function ContactForm({ lang = 'EN' }: { lang?: Lang }) {
+  const tr = t[lang].contact
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
@@ -103,14 +106,14 @@ export default function ContactForm() {
 
       {/* Name */}
       <div>
-        <label htmlFor="name" className="block text-sm text-text-secondary mb-1.5">Name</label>
+        <label htmlFor="name" className="block text-sm text-text-secondary mb-1.5">{tr.label_name}</label>
         <input
           id="name"
           type="text"
           value={name}
           onChange={e => setName(e.target.value)}
           onBlur={() => handleBlur('name')}
-          placeholder="Your name"
+          placeholder={tr.ph_name}
           className={[
             'w-full px-4 py-3 rounded-md bg-bg-secondary border text-text-primary placeholder:text-text-disabled text-sm',
             'focus:outline-none focus:border-accent focus:shadow-focus-ring transition-[border-color,box-shadow] duration-150',
@@ -124,14 +127,14 @@ export default function ContactForm() {
 
       {/* Email */}
       <div>
-        <label htmlFor="email" className="block text-sm text-text-secondary mb-1.5">Email</label>
+        <label htmlFor="email" className="block text-sm text-text-secondary mb-1.5">{tr.label_email}</label>
         <input
           id="email"
           type="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
           onBlur={() => handleBlur('email')}
-          placeholder="you@company.com"
+          placeholder={tr.ph_email}
           className={[
             'w-full px-4 py-3 rounded-md bg-bg-secondary border text-text-primary placeholder:text-text-disabled text-sm',
             'focus:outline-none focus:border-accent focus:shadow-focus-ring transition-[border-color,box-shadow] duration-150',
@@ -145,14 +148,14 @@ export default function ContactForm() {
 
       {/* Message */}
       <div>
-        <label htmlFor="message" className="block text-sm text-text-secondary mb-1.5">Message</label>
+        <label htmlFor="message" className="block text-sm text-text-secondary mb-1.5">{tr.label_message}</label>
         <textarea
           id="message"
           rows={5}
           value={message}
           onChange={e => setMessage(e.target.value)}
           onBlur={() => handleBlur('message')}
-          placeholder="Tell me about the process you'd like to automate..."
+          placeholder={tr.ph_message}
           className={[
             'w-full px-4 py-3 rounded-md bg-bg-secondary border text-text-primary placeholder:text-text-disabled text-sm resize-none',
             'focus:outline-none focus:border-accent focus:shadow-focus-ring transition-[border-color,box-shadow] duration-150',
@@ -187,7 +190,7 @@ export default function ContactForm() {
             Sending...
           </>
         ) : (
-          'Send message'
+          tr.submit
         )}
       </button>
     </form>

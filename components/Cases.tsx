@@ -6,6 +6,8 @@ import type { Variants } from 'framer-motion'
 import * as LucideIcons from 'lucide-react'
 import type { LucideProps } from 'lucide-react'
 import { casesPreview } from '@/config/cases-preview'
+import { useLang } from '@/components/LangProvider'
+import { t } from '@/lib/i18n'
 
 interface ActiveCase {
   slug: string
@@ -71,13 +73,15 @@ function ActiveCard({ c, featured }: { c: ActiveCase; featured?: boolean }) {
 /* ─── In-progress card ─────────────────────────────────────────────────────── */
 function InProgressCard({ item }: { item: (typeof casesPreview)[number] }) {
   const IconComp = getIcon(item.icon)
+  const { lang } = useLang()
+  const coming = t[lang].cases.coming
 
   return (
     <div className="flex flex-col justify-between rounded-md bg-bg-secondary border border-border-default min-h-[220px] p-6 opacity-40 select-none">
       <IconComp size={28} className="text-text-disabled" />
       <div>
         <h3 className="font-semibold text-text-secondary text-base mt-4 mb-1">{item.title}</h3>
-        <p className="text-text-disabled text-sm">Coming {item.comingSoon}</p>
+        <p className="text-text-disabled text-sm">{coming} {item.comingSoon}</p>
       </div>
     </div>
   )
@@ -86,6 +90,8 @@ function InProgressCard({ item }: { item: (typeof casesPreview)[number] }) {
 /* ─── Cases section ─────────────────────────────────────────────────────────── */
 export default function Cases({ activeCases }: Props) {
   const previews = casesPreview.slice(0, 3)
+  const { lang } = useLang()
+  const tr = t[lang].cases
 
   return (
     <section id="cases" className="py-24 px-6">
@@ -97,7 +103,7 @@ export default function Cases({ activeCases }: Props) {
           variants={fadeUp}
           className="mb-10"
         >
-          <h2 className="text-text-primary font-semibold text-2xl md:text-3xl">Cases</h2>
+          <h2 className="text-text-primary font-semibold text-2xl md:text-3xl">{tr.heading}</h2>
           <p className="text-text-secondary text-sm mt-2">Real problems. Real automations. Real results.</p>
         </motion.div>
 

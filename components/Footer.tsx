@@ -1,6 +1,8 @@
 'use client'
 
 import { Mail, Send } from 'lucide-react'
+import { useLang } from '@/components/LangProvider'
+import { t } from '@/lib/i18n'
 
 function LinkedinIcon({ size = 18 }: { size?: number }) {
   return (
@@ -19,17 +21,16 @@ function GithubIcon({ size = 18 }: { size?: number }) {
 }
 
 export default function Footer() {
+  const { lang } = useLang()
+  const tr = t[lang].footer
+
   return (
     <footer className="border-t border-border-default mt-auto">
       {/* CTA row */}
       <div className="max-w-[1400px] mx-auto px-6 py-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
         <div>
-          <p className="text-text-primary font-semibold text-lg">
-            Got a process that's eating your time?
-          </p>
-          <p className="text-text-secondary text-sm mt-1">
-            Let's automate it — usually done in under a week.
-          </p>
+          <p className="text-text-primary font-semibold text-lg">{tr.cta_heading}</p>
+          <p className="text-text-secondary text-sm mt-1">{tr.cta_sub}</p>
         </div>
         <a
           href="#contact"
@@ -39,14 +40,14 @@ export default function Footer() {
           }}
           className="shrink-0 px-6 py-2.5 rounded-md bg-accent text-white text-sm font-medium hover:bg-[#5B3EEF] transition-colors duration-150"
         >
-          Let's talk →
+          {tr.cta_btn}
         </a>
       </div>
 
       {/* Minimal row */}
       <div className="max-w-[1400px] mx-auto px-6 py-6 border-t border-border-default flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <p className="text-text-disabled text-sm">
-          © {new Date().getFullYear()} Illia Usiuk · Built with AI
+          © {new Date().getFullYear()} Illia Usiuk · {tr.copy}
         </p>
         <div className="flex items-center gap-4">
           <a

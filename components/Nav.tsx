@@ -5,6 +5,8 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
+import { useLang } from '@/components/LangProvider'
+import { t } from '@/lib/i18n'
 
 function GithubIcon({ size = 18 }: { size?: number }) {
   return (
@@ -14,17 +16,18 @@ function GithubIcon({ size = 18 }: { size?: number }) {
   )
 }
 
-const links = [
-  { href: '/', label: 'Home' },
-  { href: '/#cases', label: 'Cases' },
-  { href: '/about', label: 'About' },
-]
-
 export default function Nav() {
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
-  const [lang, setLang] = useState<'EN' | 'UA'>('EN')
+  const { lang, setLang } = useLang()
+  const tr = t[lang].nav
+
+  const links = [
+    { href: '/', label: tr.home },
+    { href: '/#cases', label: tr.cases },
+    { href: '/about', label: tr.about },
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 0)
@@ -94,7 +97,7 @@ export default function Nav() {
           <div className="hidden md:flex items-center gap-3">
             {/* Language switcher */}
             <button
-              onClick={() => setLang(l => l === 'EN' ? 'UA' : 'EN')}
+              onClick={() => setLang(lang === 'EN' ? 'UA' : 'EN')}
               className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-150 px-1"
               aria-label="Switch language"
             >
@@ -117,7 +120,7 @@ export default function Nav() {
               onClick={handleContactClick}
               className="px-4 py-2 rounded-md bg-accent text-white text-sm font-medium hover:bg-[#5B3EEF] transition-colors duration-150"
             >
-              Contact
+              {tr.contact}
             </button>
           </div>
 
@@ -203,7 +206,7 @@ export default function Nav() {
               {/* Bottom row */}
               <div className="flex items-center justify-between pt-6 border-t border-border-default">
                 <button
-                  onClick={() => setLang(l => l === 'EN' ? 'UA' : 'EN')}
+                  onClick={() => setLang(lang === 'EN' ? 'UA' : 'EN')}
                   className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-150"
                 >
                   {lang}
