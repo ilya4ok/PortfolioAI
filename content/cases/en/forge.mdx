@@ -5,7 +5,17 @@ description: A personal productivity system with an AI coach, habit tracking, an
 metric: −60 min/week on planning & journaling
 tools: ["Claude API", "Supabase", "Next.js", "TypeScript", "Email API"]
 icon: Flame
+logo: /cases/forge/logo.svg
 status: active
+highlights:
+  - { value: "−60 min", label: "saved on weekly planning" }
+  - { value: "30 → 10 min", label: "to work through a problem" }
+  - { value: "40 → 8 min", label: "to schedule the week" }
+features:
+  - { icon: "BookOpen", title: "AI Journal", desc: "Reads patterns across entries, responds as a coach who actually knows your week" }
+  - { icon: "CalendarDays", title: "Smart Schedule", desc: "Describe your tasks in plain language — get back prioritised cards with time estimates" }
+  - { icon: "Trophy", title: "Habit Tracking", desc: "Streaks, XP, achievement badges — consistency feels like progress, not discipline" }
+  - { icon: "Brain", title: "Psychology Mode", desc: "Asks the right questions based on what you've written. Notices what you don't" }
 ---
 
 ## How it started
@@ -17,7 +27,7 @@ It had a journal, an AI coach that read my entries, habit tracking with streaks 
 ## What it actually did for me
 
 **The psychologist bot changed how I processed problems.**
-Before, I'd write things down in a notebook — thoughts, blockers, things I was overthinking. It helped, but I was writing into a void. With Forge, the AI read what I wrote and responded with questions or observations based on patterns it noticed across previous entries. That feedback loop cut the time I spent stuck on a single problem from 30–40 minutes to under 10.
+Before, I'd write things down in a notebook — thoughts, blockers, things I was overthinking. It helped, but I was writing into a void. With Forge, the AI read what I wrote and responded with questions or observations based on patterns it noticed across previous entries. That feedback loop cut the time I spent stuck on a single problem from 30 minutes to under 10.
 
 **Planning went from friction to automatic.**
 Every week I'd spend 40–50 minutes figuring out what to do, in what order, and what was actually important versus what just felt urgent. With Forge I'd send my rough list of tasks and a few notes about the week, and the AI would return structured cards — prioritised, sorted, with time estimates. That process now takes about 8 minutes.
@@ -29,22 +39,10 @@ Progress tracking and achievement unlocks sound gimmicky until you notice you've
 
 Two things had to be rebuilt:
 
-**Personal data → user accounts.** Everything that was hardcoded for me — my tracks, my context, my journal — had to become dynamic. Each user gets their own space, their own AI memory, their own data. Supabase Auth + row-level security made sure no one sees anyone else's journal.
+**Personal data → user accounts.** Everything that was hardcoded for me had to become dynamic. Each user gets their own space, their own AI memory, their own data. Supabase Auth + row-level security: no one sees anyone else's journal.
 
-**Browser storage → real database.** The original version lived in localStorage. Fine for one person. Not fine when someone clears their browser and loses three months of journal entries. Supabase solved this.
-
-Email notifications were added too — weekly summaries, streak reminders, achievement alerts.
+**Browser storage → real database.** The original version lived in localStorage. Fine for one person. Not fine when someone clears their browser and loses months of journal entries. Supabase solved this. Email notifications were added too — weekly summaries, streak reminders, achievement alerts.
 
 ## Launch
 
-Two beta rounds. Real bugs found, real bugs fixed — auth issues on the first run, edge cases in the achievement system on the second. After that: stable enough to open up. Live domain, real users.
-
-## What Forge does
-
-**AI journal** — write about your day, the AI responds as a coach. It reads previous entries and builds a picture of patterns over time. Not generic responses — shaped by what you've actually written over weeks.
-
-**Smart scheduling** — describe your tasks and priorities in plain language, get back a structured plan with time estimates and what actually matters flagged.
-
-**Habit tracking + gamification** — streaks, XP, achievement badges. The kind of system that makes you want to come back tomorrow just to keep the streak alive.
-
-**Psychology mode** — the AI uses journal context to ask the right questions at the right time. It notices themes across entries that you might not see yourself.
+Two beta rounds. Real bugs found, real bugs fixed. After that: stable enough to open up. Live domain, real users writing in their journals.

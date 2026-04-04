@@ -5,6 +5,17 @@ import matter from 'gray-matter'
 const CASES_DIR_EN = path.join(process.cwd(), 'content/cases/en')
 const CASES_DIR_UK = path.join(process.cwd(), 'content/cases/uk')
 
+export interface CaseHighlight {
+  value: string
+  label: string
+}
+
+export interface CaseFeature {
+  icon: string
+  title: string
+  desc: string
+}
+
 export interface CaseFrontmatter {
   slug: string
   title: string
@@ -14,6 +25,9 @@ export interface CaseFrontmatter {
   icon: string
   status: 'active' | 'locked'
   ogImage?: string
+  logo?: string
+  highlights?: CaseHighlight[]
+  features?: CaseFeature[]
 }
 
 function readCase(locale: 'en' | 'uk', slug: string): { frontmatter: CaseFrontmatter; content: string } | null {

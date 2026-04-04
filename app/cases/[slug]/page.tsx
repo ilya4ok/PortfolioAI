@@ -3,9 +3,13 @@ import type { Metadata } from 'next'
 import { compileMDX } from 'next-mdx-remote/rsc'
 import { getCaseBySlug, getActiveSlugs, estimateReadTime } from '@/lib/cases'
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, BookOpen, CalendarDays, Trophy, Brain, Zap, Star, Target, Layers, type LucideIcon } from 'lucide-react'
 import ScrollProgress from '@/components/ScrollProgress'
 import { cookies } from 'next/headers'
+
+const ICON_MAP: Record<string, LucideIcon> = {
+  BookOpen, CalendarDays, Trophy, Brain, Zap, Star, Target, Layers,
+}
 
 interface Params { slug: string }
 
@@ -75,8 +79,26 @@ export default async function CasePage({ params }: { params: Promise<Params> }) 
 
           {/* ── Left: prose ── */}
           <article>
-            <h1 className="font-bold text-text-primary text-3xl md:text-4xl mb-3">{c.title}</h1>
+            {/* Header: logo + title */}
+            <div className="flex items-center gap-4 mb-3">
+              {c.logo && (
+                <img src={c.logo} alt={c.title} width={52} height={52} className="rounded-xl flex-shrink-0" />
+              )}
+              <h1 className="font-bold text-text-primary text-3xl md:text-4xl">{c.title}</h1>
+            </div>
             <p className="text-accent font-bold text-2xl md:text-3xl mb-8">{c.metric}</p>
+
+            {/* Highlights row */}
+            {c.highlights && c.highlights.length > 0 && (
+              <div className="grid grid-cols-3 gap-3 mb-10">
+                {c.highlights.map((h, i) => (
+                  <div key={i} className="rounded-md bg-bg-secondary border border-border-default p-4 text-center">
+                    <p className="text-accent font-bold text-xl md:text-2xl leading-tight">{h.value}</p>
+                    <p className="text-text-disabled text-xs mt-1 leading-snug">{h.label}</p>
+                  </div>
+                ))}
+              </div>
+            )}
 
             <div className="prose prose-invert prose-sm max-w-none
               [&_h2]:text-text-primary [&_h2]:font-semibold [&_h2]:text-xl [&_h2]:mt-10 [&_h2]:mb-4
@@ -91,6 +113,26 @@ export default async function CasePage({ params }: { params: Promise<Params> }) 
             ">
               {mdxContent}
             </div>
+
+            {/* Features grid */}
+            {c.features && c.features.length > 0 && (
+              <div className="mt-12 grid sm:grid-cols-2 gap-4">
+                {c.features.map((f, i) => {
+                  const Icon = ICON_MAP[f.icon] ?? Zap
+                  return (
+                    <div key={i} className="rounded-md bg-bg-secondary border border-border-default p-5 flex gap-4 items-start">
+                      <div className="flex-shrink-0 w-9 h-9 rounded-md bg-accent/10 flex items-center justify-center">
+                        <Icon size={18} className="text-accent" />
+                      </div>
+                      <div>
+                        <p className="text-text-primary font-semibold text-sm mb-1">{f.title}</p>
+                        <p className="text-text-secondary text-sm leading-relaxed">{f.desc}</p>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
           </article>
 
           {/* ── Right: sticky sidebar ── */}
