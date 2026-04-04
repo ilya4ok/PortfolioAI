@@ -20,18 +20,51 @@ sections:
   - title: "How it started"
     type: text
     body: "Built the first version for myself — no sign-up, no database, just a tool shaped around how I work. Journal, AI coach, habit tracking with streaks and XP. I used it every day. Friends saw it and wanted the same."
-  - title: "What it actually did"
+  - title: "Why it works — the numbers"
     type: cards
     items:
       - icon: Brain
         title: "30 → 10 min on any problem"
-        desc: "The AI read what I wrote and responded with questions based on patterns across entries. Writing into a void became a real feedback loop."
+        desc: "The AI read what I wrote and responded with questions based on patterns across previous entries. Problems that used to spiral got resolved 3× faster."
       - icon: CalendarDays
         title: "40 min weekly planning → 8 min"
-        desc: "Send a rough task list, get back prioritised cards with time estimates. The friction of weekly planning basically disappeared."
+        desc: "Send a rough task list and a few notes. Get back prioritised cards with time estimates. The cognitive overhead of deciding what matters disappeared."
       - icon: Trophy
         title: "Habits that actually stick"
         desc: "Streaks and XP sound gimmicky until you hit a 30-day streak without consciously thinking about it. Consistency starts feeling like progress."
+      - icon: Clock
+        title: "−60 min/week total"
+        desc: "Across journaling, planning, and problem-solving — an hour a week reclaimed. For anyone doing serious focused work, that compounds fast."
+  - title: "Process"
+    type: process
+    steps:
+      - step: 0
+        label: "Before"
+        desc: "40–50 min on weekly planning. Journaling into a void — no patterns, no feedback, no loop."
+      - step: 1
+        label: "Personal logging"
+        desc: "One week tracking exactly where my time went. Built baselines before building anything."
+      - step: 2
+        label: "6 user interviews"
+        desc: "Talked to people about how they plan their weeks and where they lose time. The psychologist mode came directly from these — nobody asked for it, but everyone described needing it."
+      - step: 3
+        label: "v1 for myself"
+        desc: "localStorage, no auth, no database. Just the tool shaped around how I work."
+      - step: 4
+        label: "1 month daily use"
+        desc: "Used it every day before anyone else touched it. Every frustration became a fix."
+      - step: 5
+        label: "Beta round 1"
+        desc: "Watched users navigate the app live. The habit section layout changed completely — the original design confused everyone."
+      - step: 6
+        label: "Multi-user rebuild"
+        desc: "Supabase Auth, row-level security, real database. Each user gets their own isolated space."
+      - step: 7
+        label: "Beta round 2"
+        desc: "Final round. Edge cases fixed, email notifications added, streaks made reliable."
+      - step: 8
+        label: "Public launch"
+        desc: "Live domain, open access, real users writing in their journals."
   - title: "What changed when I opened it up"
     type: cards
     items:
@@ -41,36 +74,8 @@ sections:
       - icon: Database
         title: "localStorage → real database"
         desc: "The original lived in localStorage. Supabase fixed the 'clear browser, lose months of data' problem. Weekly summaries and streak reminders added too."
-  - title: "Launch"
-    type: text
-    body: "Two beta rounds. Real bugs found, real bugs fixed. After that: stable enough to open up. Live domain, real users writing in their journals."
+  - title: "Free. No catch."
+    type: callout
+    body: "Forge is free to use — no paywalls, no trial limits, no credit card. Built it for myself, keeping it free for everyone."
+    cta: "Try Forge"
 ---
-
-## How it started
-
-I built the first version for myself. No sign-up, no database — just a tool that fit exactly how I work.
-
-It had a journal, an AI coach that read my entries, habit tracking with streaks and XP, and a schedule I could update by just writing a message. I used it every day. It worked. Friends saw it and wanted the same thing.
-
-## What it actually did for me
-
-**The psychologist bot changed how I processed problems.**
-Before, I'd write things down in a notebook — thoughts, blockers, things I was overthinking. It helped, but I was writing into a void. With Forge, the AI read what I wrote and responded with questions or observations based on patterns it noticed across previous entries. That feedback loop cut the time I spent stuck on a single problem from 30 minutes to under 10.
-
-**Planning went from friction to automatic.**
-Every week I'd spend 40–50 minutes figuring out what to do, in what order, and what was actually important versus what just felt urgent. With Forge I'd send my rough list of tasks and a few notes about the week, and the AI would return structured cards — prioritised, sorted, with time estimates. That process now takes about 8 minutes.
-
-**Gamification made habits stick.**
-Progress tracking and achievement unlocks sound gimmicky until you notice you've kept a 30-day streak without thinking about it. The XP system made consistency feel like forward motion rather than discipline.
-
-## What changed when I opened it up
-
-Two things had to be rebuilt:
-
-**Personal data → user accounts.** Everything that was hardcoded for me had to become dynamic. Each user gets their own space, their own AI memory, their own data. Supabase Auth + row-level security: no one sees anyone else's journal.
-
-**Browser storage → real database.** The original version lived in localStorage. Fine for one person. Not fine when someone clears their browser and loses months of journal entries. Supabase solved this. Email notifications were added too — weekly summaries, streak reminders, achievement alerts.
-
-## Launch
-
-Two beta rounds. Real bugs found, real bugs fixed. After that: stable enough to open up. Live domain, real users writing in their journals.

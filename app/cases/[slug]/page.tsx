@@ -3,12 +3,13 @@ import type { Metadata } from 'next'
 import { compileMDX } from 'next-mdx-remote/rsc'
 import { getCaseBySlug, getActiveSlugs, estimateReadTime } from '@/lib/cases'
 import Link from 'next/link'
-import { ArrowLeft, BookOpen, CalendarDays, Trophy, Brain, Zap, Star, Target, Layers, Users, Database, type LucideIcon } from 'lucide-react'
+import { ArrowLeft, BookOpen, CalendarDays, Trophy, Brain, Zap, Star, Target, Layers, Users, Database, Clock, MessageSquare, Search, Repeat, MessageCircle, type LucideIcon } from 'lucide-react'
 import ScrollProgress from '@/components/ScrollProgress'
 import { cookies } from 'next/headers'
 
 const ICON_MAP: Record<string, LucideIcon> = {
-  BookOpen, CalendarDays, Trophy, Brain, Zap, Star, Target, Layers, Users, Database,
+  BookOpen, CalendarDays, Trophy, Brain, Zap, Star, Target, Layers,
+  Users, Database, Clock, MessageSquare, Search, Repeat, MessageCircle,
 }
 
 interface Params { slug: string }
@@ -104,15 +105,22 @@ export default async function CasePage({ params }: { params: Promise<Params> }) 
 
             {/* Sections (card-driven narrative) */}
             {hasSections ? (
-              <div className="flex flex-col gap-8">
+              <div className="flex flex-col gap-10">
                 {c.sections!.map((section, si) => (
                   <div key={si}>
-                    <h2 className="text-text-primary font-semibold text-lg mb-3">{section.title}</h2>
-                    {section.type === 'text' ? (
+                    {section.type !== 'callout' && (
+                      <h2 className="text-text-primary font-semibold text-lg mb-4">{section.title}</h2>
+                    )}
+
+                    {/* text */}
+                    {section.type === 'text' && (
                       <div className="rounded-md bg-bg-secondary border border-border-default p-5">
                         <p className="text-text-secondary text-sm leading-relaxed">{section.body}</p>
                       </div>
-                    ) : (
+                    )}
+
+                    {/* cards */}
+                    {section.type === 'cards' && (
                       <div className="grid sm:grid-cols-2 gap-3">
                         {section.items?.map((item, ii) => {
                           const Icon = ICON_MAP[item.icon] ?? Zap
@@ -128,6 +136,48 @@ export default async function CasePage({ params }: { params: Promise<Params> }) 
                             </div>
                           )
                         })}
+                      </div>
+                    )}
+
+                    {/* process timeline */}
+                    {section.type === 'process' && section.steps && (
+                      <div className="overflow-x-auto pb-2">
+                        <div className="flex items-start min-w-max gap-0">
+                          {section.steps.map((step, idx) => (
+                            <div key={idx} className="flex items-start">
+                              {/* step */}
+                              <div className="flex flex-col items-center w-28">
+                                <div className={`w-9 h-9 rounded-full border-2 flex items-center justify-center text-sm font-bold flex-shrink-0 ${step.step === 0 ? 'border-text-disabled text-text-disabled' : 'border-accent text-accent'}`}>
+                                  {step.step}
+                                </div>
+                                <p className={`text-xs font-semibold text-center mt-2 leading-tight ${step.step === 0 ? 'text-text-disabled' : 'text-text-primary'}`}>{step.label}</p>
+                                <p className="text-text-disabled text-xs text-center mt-1 leading-snug px-1">{step.desc}</p>
+                              </div>
+                              {/* connector line — not after last */}
+                              {idx < section.steps!.length - 1 && (
+                                <div className="flex-shrink-0 w-6 mt-4 border-t border-dashed border-border-default" />
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* callout */}
+                    {section.type === 'callout' && (
+                      <div className="rounded-md border border-accent/30 bg-accent/5 p-6 flex flex-col sm:flex-row sm:items-center gap-4">
+                        <div className="flex-1">
+                          <p className="text-text-primary font-semibold text-base mb-1">{section.title}</p>
+                          <p className="text-text-secondary text-sm leading-relaxed">{section.body}</p>
+                        </div>
+                        {section.cta && (
+                          <a
+                            href="#"
+                            className="inline-flex items-center justify-center h-10 px-5 rounded-md bg-accent text-white text-sm font-medium hover:bg-[#5B3EEF] transition-colors duration-200 flex-shrink-0"
+                          >
+                            {section.cta}
+                          </a>
+                        )}
                       </div>
                     )}
                   </div>

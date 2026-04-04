@@ -22,11 +22,19 @@ export interface CaseSectionItem {
   desc: string
 }
 
+export interface CaseProcessStep {
+  step: number
+  label: string
+  desc: string
+}
+
 export interface CaseSection {
   title: string
-  type: 'text' | 'cards'
+  type: 'text' | 'cards' | 'callout' | 'process'
   body?: string
+  cta?: string
   items?: CaseSectionItem[]
+  steps?: CaseProcessStep[]
 }
 
 export interface CaseFrontmatter {
