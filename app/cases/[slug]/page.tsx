@@ -78,10 +78,10 @@ export default async function CasePage({ params }: { params: Promise<Params> }) 
           {ui.back}
         </Link>
 
-        <div className="grid lg:grid-cols-[1fr_280px] gap-12 lg:gap-16 items-start">
+        <div className="grid lg:grid-cols-[1fr_280px] gap-8 lg:gap-16 items-start">
 
           {/* ── Left: prose ── */}
-          <article>
+          <article className="min-w-0">
             {/* Header: logo + title */}
             <div className="flex items-center gap-4 mb-3">
               {c.logo && (
@@ -93,11 +93,11 @@ export default async function CasePage({ params }: { params: Promise<Params> }) 
 
             {/* Highlights row */}
             {c.highlights && c.highlights.length > 0 && (
-              <div className="grid grid-cols-3 gap-3 mb-10">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-10">
                 {c.highlights.map((h, i) => (
-                  <div key={i} className="rounded-md bg-bg-secondary border border-border-default p-4 text-center">
+                  <div key={i} className="rounded-md bg-bg-secondary border border-border-default p-4 text-center sm:text-center flex sm:flex-col items-center sm:items-center gap-3 sm:gap-0">
                     <p className="text-accent font-bold text-xl md:text-2xl leading-tight">{h.value}</p>
-                    <p className="text-text-disabled text-xs mt-1 leading-snug">{h.label}</p>
+                    <p className="text-text-disabled text-xs sm:mt-1 leading-snug">{h.label}</p>
                   </div>
                 ))}
               </div>
@@ -139,27 +139,31 @@ export default async function CasePage({ params }: { params: Promise<Params> }) 
                       </div>
                     )}
 
-                    {/* process timeline */}
+                    {/* process timeline — vertical */}
                     {section.type === 'process' && section.steps && (
-                      <div className="overflow-x-auto pb-2">
-                        <div className="flex items-start min-w-max gap-0">
-                          {section.steps.map((step, idx) => (
-                            <div key={idx} className="flex items-start">
-                              {/* step */}
-                              <div className="flex flex-col items-center w-28">
-                                <div className={`w-9 h-9 rounded-full border-2 flex items-center justify-center text-sm font-bold flex-shrink-0 ${step.step === 0 ? 'border-text-disabled text-text-disabled' : 'border-accent text-accent'}`}>
+                      <div className="grid sm:grid-cols-2 gap-x-8 gap-y-0">
+                        {section.steps.map((step, idx) => {
+                          const isLast = idx === section.steps!.length - 1
+                          const isBefore = step.step === 0
+                          return (
+                            <div key={idx} className="flex gap-3">
+                              {/* left: circle + line */}
+                              <div className="flex flex-col items-center flex-shrink-0">
+                                <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center text-xs font-bold flex-shrink-0 ${isBefore ? 'border-text-disabled text-text-disabled' : 'border-accent text-accent'}`}>
                                   {step.step}
                                 </div>
-                                <p className={`text-xs font-semibold text-center mt-2 leading-tight ${step.step === 0 ? 'text-text-disabled' : 'text-text-primary'}`}>{step.label}</p>
-                                <p className="text-text-disabled text-xs text-center mt-1 leading-snug px-1">{step.desc}</p>
+                                {!isLast && (
+                                  <div className="w-px flex-1 min-h-[24px] border-l border-dashed border-border-default my-1" />
+                                )}
                               </div>
-                              {/* connector line — not after last */}
-                              {idx < section.steps!.length - 1 && (
-                                <div className="flex-shrink-0 w-6 mt-4 border-t border-dashed border-border-default" />
-                              )}
+                              {/* right: content */}
+                              <div className={`pb-6 ${isLast ? 'pb-0' : ''}`}>
+                                <p className={`font-semibold text-sm leading-tight mb-1 ${isBefore ? 'text-text-disabled' : 'text-text-primary'}`}>{step.label}</p>
+                                <p className="text-text-disabled text-sm leading-relaxed">{step.desc}</p>
+                              </div>
                             </div>
-                          ))}
-                        </div>
+                          )
+                        })}
                       </div>
                     )}
 
@@ -221,23 +225,30 @@ export default async function CasePage({ params }: { params: Promise<Params> }) 
           </article>
 
           {/* ── Right: sticky sidebar ── */}
-          <aside className="lg:sticky lg:top-28 flex flex-col gap-4">
+          <aside className="order-first lg:order-last lg:sticky lg:top-28 flex flex-col gap-4">
 
-            <div className="rounded-md bg-bg-secondary border border-border-default p-5">
+            {/* On mobile: compact inline row — stack + read time */}
+            <div className="rounded-md bg-bg-secondary border border-border-default p-4 lg:p-5">
+              <div className="flex items-start justify-between gap-4 lg:block">
+                <div className="lg:mb-4 min-w-0">
+                  <p className="text-text-disabled text-xs uppercase tracking-wider mb-2">{ui.stack}</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {c.tools.map(tool => (
+                      <span key={tool} className="text-xs px-2 py-0.5 rounded-sm bg-bg-tertiary text-text-secondary border border-border-default">
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <p className="text-text-disabled text-xs whitespace-nowrap flex-shrink-0 pt-0.5 lg:hidden">{readTime} {ui.read}</p>
+              </div>
+            </div>
+
+            {/* Description — hidden on mobile, visible on lg */}
+            <div className="hidden lg:block rounded-md bg-bg-secondary border border-border-default p-5">
               <p className="text-text-disabled text-xs uppercase tracking-wider mb-3">{ui.about}</p>
               <p className="text-text-secondary text-sm leading-relaxed mb-4">{c.description}</p>
               <p className="text-text-disabled text-sm">{readTime} {ui.read}</p>
-            </div>
-
-            <div className="rounded-md bg-bg-secondary border border-border-default p-5">
-              <p className="text-text-disabled text-xs uppercase tracking-wider mb-3">{ui.stack}</p>
-              <div className="flex flex-wrap gap-1.5">
-                {c.tools.map(tool => (
-                  <span key={tool} className="text-sm px-2.5 py-1 rounded-sm bg-bg-tertiary text-text-secondary border border-border-default">
-                    {tool}
-                  </span>
-                ))}
-              </div>
             </div>
 
             <a

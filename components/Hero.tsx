@@ -77,7 +77,7 @@ export default function Hero() {
 
         {/* CTAs */}
         <motion.div custom={0.3} variants={fade} initial="hidden" animate="visible"
-          className="flex items-center gap-3 mb-14"
+          className="flex flex-wrap items-center gap-3 mb-14"
         >
           <MagneticButton>
             <button
