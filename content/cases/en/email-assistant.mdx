@@ -38,28 +38,6 @@ sections:
   - title: "The key detail — human stays in control"
     type: text
     body: "Nothing sends automatically. Every reply goes through Telegram approval. The loop continues until you're satisfied — you can correct once, twice, as many times as needed. The AI handles the writing, you handle the judgment."
-  - title: "The approval loop"
-    type: split
-    screenshot: "/cases/email-assistant/telegram.png"
-    steps:
-      - step: 1
-        label: "Email arrives"
-        desc: "Gmail trigger fires and sends the full email to the AI agent"
-      - step: 2
-        label: "AI drafts a reply"
-        desc: "GPT-4o reads the tone and writes a natural response in the same language"
-      - step: 3
-        label: "Preview lands in Telegram"
-        desc: "You see the sender, tone, email content, and the planned reply"
-      - step: 4
-        label: "Write 'ok' or a correction"
-        desc: "One word to send it — or type any edit to improve the draft"
-      - step: 5
-        label: "AI rewrites instantly"
-        desc: "Your correction becomes context — a new draft arrives in seconds"
-      - step: 6
-        label: "Reply sent"
-        desc: "Email goes out, pending data clears, inbox stays clean"
   - title: "Why it matters"
     type: cards
     items:
@@ -87,6 +65,28 @@ sections:
       - icon: Database
         title: "Static data as state"
         desc: "n8n workflow static data stores the pending email between the two flows — no external database needed."
+  - title: "The approval loop"
+    type: split
+    screenshot: "/cases/email-assistant/telegram.png"
+    steps:
+      - step: 1
+        label: "Email arrives"
+        desc: "Gmail trigger fires and sends the full email to the AI agent"
+      - step: 2
+        label: "AI drafts a reply"
+        desc: "GPT-4o reads the tone and writes a natural response in the same language"
+      - step: 3
+        label: "Preview lands in Telegram"
+        desc: "You see the sender, tone, email content, and the planned reply"
+      - step: 4
+        label: "Write 'ok' or a correction"
+        desc: "One word to send it — or type any edit to improve the draft"
+      - step: 5
+        label: "AI rewrites instantly"
+        desc: "Your correction becomes context — a new draft arrives in seconds"
+      - step: 6
+        label: "Reply sent"
+        desc: "Email goes out, pending data clears, inbox stays clean"
   - title: "Free. No catch."
     type: callout
     body: "The workflow JSON is open — anyone can import it into their n8n instance and connect their own Gmail and Telegram accounts."
