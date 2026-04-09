@@ -174,7 +174,7 @@ export default async function CasePage({ params }: { params: Promise<Params> }) 
                         <img
                           src={section.screenshot}
                           alt={section.title}
-                          className="w-full h-auto block"
+                          className="w-full h-auto block max-h-[480px] object-cover object-top"
                         />
                       </div>
                     )}
