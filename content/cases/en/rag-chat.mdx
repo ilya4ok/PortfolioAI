@@ -1,0 +1,82 @@
+---
+slug: rag-chat
+title: Document AI Chat
+description: Upload any PDF — novel, technical documentation, manual — and have a conversation with it. Semantic search finds the right chunks, Claude answers in your language.
+metric: Any PDF → instant knowledge base
+tools: ["n8n", "Qdrant", "OpenAI Embeddings", "Claude"]
+icon: BookOpen
+status: active
+highlights:
+  - { value: "5258", label: "chunks — PostgreSQL docs indexed" }
+  - { value: "top-20", label: "semantic results per query" }
+  - { value: "pdf txt doc", label: "supported file formats" }
+features:
+  - { icon: "Layers", title: "Upload any document", desc: "Web form accepts PDF, TXT, DOC. Extraction, chunking, and embedding happen automatically." }
+  - { icon: "Search", title: "Semantic search", desc: "Every question is embedded into a vector. Qdrant finds the 20 most semantically similar chunks." }
+  - { icon: "Brain", title: "Claude answers", desc: "Claude reads the retrieved context and answers strictly from it — no hallucinations from general knowledge." }
+  - { icon: "Globe", title: "Multilingual by default", desc: "Ask in Ukrainian, English, or any language. Claude detects and responds in the same language automatically." }
+sections:
+  - title: "The problem"
+    type: text
+    body: "Documents are static. You can Ctrl+F, scroll through pages, or hope the table of contents helps. But you can't ask a PDF a question and get a structured answer. Every document is a knowledge base that nobody can actually query."
+  - title: "Step 1 — loading the document"
+    type: text
+    screenshot: "/cases/rag-chat/ingestion-flow.png"
+    body: "Upload through a web form. n8n extracts the text, splits it into chunks of 2000 characters with 200-character overlaps, converts each chunk into a 1536-dimensional vector via OpenAI Embeddings, and stores everything in Qdrant. One PDF becomes hundreds of searchable points."
+  - title: "Step 2 — answering the question"
+    type: text
+    screenshot: "/cases/rag-chat/query-flow.png"
+    body: "The question is embedded into the same vector space. Qdrant retrieves the top 20 semantically closest chunks. All 20 are aggregated and passed to Claude with a strict instruction: answer only from the provided context. If the answer isn't there — say so."
+  - title: "Two collections, two subjects"
+    type: cards
+    screenshot: "/cases/rag-chat/qdrant-collections.png"
+    items:
+      - icon: BookOpen
+        title: "Harry Potter"
+        desc: "366 chunks. A full novel indexed — ask about characters, plot, chapters, any detail from the book."
+      - icon: Database
+        title: "PostgreSQL docs"
+        desc: "5258 chunks. Official documentation — ask about syntax, functions, transactions, configuration."
+  - title: "Demo — ask a novel"
+    type: text
+    screenshot: "/cases/rag-chat/chat-harry-potter.png"
+    body: "Question in Ukrainian: 'Tell me what happened in the first chapter?' The bot responds with a structured breakdown — the Dursley family, the secret, the strange day. Accurate, detailed, in Ukrainian. Language is detected automatically."
+  - title: "Demo — ask the docs"
+    type: split
+    screenshot: "/cases/rag-chat/chat-postgresql.png"
+    steps:
+      - step: 1
+        label: "Question asked in Ukrainian"
+        desc: "What is a transaction in PostgreSQL and how to use it properly?"
+      - step: 2
+        label: "5258 chunks searched"
+        desc: "The question is embedded and matched against the full PostgreSQL documentation"
+      - step: 3
+        label: "Top 20 fragments retrieved"
+        desc: "The most relevant documentation sections are pulled from Qdrant"
+      - step: 4
+        label: "Claude reads the context"
+        desc: "Strict prompt — answer only from the provided context, not from general knowledge"
+      - step: 5
+        label: "Structured answer returned"
+        desc: "BEGIN/COMMIT/ROLLBACK explained with code examples, marked as from provided context"
+  - title: "What's under the hood"
+    type: cards
+    items:
+      - icon: Zap
+        title: "n8n — orchestration"
+        desc: "Two workflows: ingestion (form → PDF → Qdrant) and query (chat → search → Claude)."
+      - icon: Database
+        title: "Qdrant — vector store"
+        desc: "Stores 1536-dimensional embeddings with cosine similarity. Each document collection is isolated."
+      - icon: Sparkles
+        title: "OpenAI Embeddings"
+        desc: "Chunk size 2000 / overlap 200. Overlapping windows preserve context at chunk boundaries."
+      - icon: Brain
+        title: "Claude Sonnet — the brain"
+        desc: "Reads aggregated context and generates structured answers. Strictly grounded — no hallucinations."
+  - title: "Open source. Self-hostable."
+    type: callout
+    body: "Both workflow JSONs are open — import into your n8n instance, connect Qdrant and OpenAI credentials, start uploading documents."
+    cta: "Get the workflows"
+---
