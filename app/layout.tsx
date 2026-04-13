@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono, Syne } from 'next/font/google'
+import { Geist, Geist_Mono, Unbounded } from 'next/font/google'
 import './globals.css'
 import PageTransition from '@/components/PageTransition'
 import { LangProvider } from '@/components/LangProvider'
@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
-const syne = Syne({
+const syne = Unbounded({
   variable: '--font-syne',
-  subsets: ['latin'],
+  subsets: ['latin', 'cyrillic'],
   weight: ['400', '500', '600', '700', '800'],
 })
 
