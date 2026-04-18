@@ -18,69 +18,9 @@ features:
 sections:
   - title: "The problem"
     type: text
-    body: "Email takes longer than it should. Not because replies are hard — but because switching context, opening the thread, thinking about tone, writing something that sounds human — all of that adds up. Five minutes per email, several times a day."
-  - title: "Who has this problem"
-    type: cards
-    items:
-      - icon: Users
-        title: "Founders & freelancers"
-        desc: "Handling client communication alone. 15-20 emails/day, no one to delegate to. Every reply is a context switch that breaks deep work."
-      - icon: MessageSquare
-        title: "Account managers"
-        desc: "High volume, relationship-sensitive replies. Wrong tone costs a client. AI drafts in their voice, they approve — full speed, zero risk."
-      - icon: Clock
-        title: "The ROI in numbers"
-        desc: "20 emails/day × 4.5 min saved = 90 min returned daily. That's 7.5 hours a week — nearly a full working day — back in your hands every week."
-      - icon: Shield
-        title: "When NOT to use it"
-        desc: "Sensitive negotiations, legal correspondence, anything where every word matters. This handles routine replies — not career-defining emails."
+    body: "Email takes 5 minutes per reply — not because the replies are hard, but because switching context, reading the thread, and matching the right tone all add up. At 20 emails a day, that's over an hour of overhead."
+
   - title: "How it works"
-    type: cards
-    screenshot: "/cases/email-assistant/workflow.png"
-    items:
-      - icon: Mail
-        title: "1. Email arrives"
-        desc: "Gmail trigger fires. The email — sender, subject, full content — goes into the AI agent."
-      - icon: Brain
-        title: "2. AI reads and drafts"
-        desc: "GPT-4o analyzes the tone (positive, negative, neutral), summarizes the email, and writes a natural reply in the same language."
-      - icon: Send
-        title: "3. Preview in Telegram"
-        desc: "You get a message: who wrote, what tone, what the email says, and the planned reply. No inbox switching."
-      - icon: CheckCircle
-        title: "4. Approve or correct"
-        desc: "Write 'ok' — it sends. Write anything else — the AI rewrites with your correction and shows the new version."
-  - title: "The key detail — human stays in control"
-    type: text
-    body: "Full automation was the obvious path. But it creates a trust problem — people don't want AI speaking for them without review, especially in professional contexts. The approval loop isn't a limitation. It's the product decision that makes the system actually usable. You get the speed of AI with the judgment of a human. In practice, most drafts go out on the first 'ok'."
-  - title: "Why it matters"
-    type: cards
-    items:
-      - icon: Clock
-        title: "5 min → 30 sec"
-        desc: "Reading, drafting, editing — all done by the AI. You spend 30 seconds reviewing and tapping 'ok'. At 20 emails a day, that's 90 minutes returned — every single day."
-      - icon: Globe
-        title: "Automatic language detection"
-        desc: "Received an email in English? Reply in English. In Ukrainian? In Ukrainian. No extra prompting needed."
-      - icon: RefreshCw
-        title: "Unlimited regeneration"
-        desc: "The correction loop has no limit. Each edit makes the reply better — and the AI never loses the context of the original email."
-      - icon: Shield
-        title: "No accidental sends"
-        desc: "The two-flow architecture (Gmail → Telegram, Telegram → Gmail) makes it physically impossible to send without explicit approval."
-  - title: "What's under the hood"
-    type: cards
-    items:
-      - icon: Zap
-        title: "n8n — the backbone"
-        desc: "Two separate workflows connected via shared static data. Gmail trigger in one, Telegram trigger in the other."
-      - icon: Brain
-        title: "GPT-4o via OpenRouter"
-        desc: "Structured output parser extracts email fields reliably. Regeneration agent takes the previous draft + correction as context."
-      - icon: Database
-        title: "Static data as state"
-        desc: "n8n workflow static data stores the pending email between the two flows — no external database needed."
-  - title: "The approval loop"
     type: split
     screenshot: "/cases/email-assistant/telegram.png"
     steps:
@@ -92,7 +32,7 @@ sections:
         desc: "GPT-4o reads the tone and writes a natural response in the same language"
       - step: 3
         label: "Preview lands in Telegram"
-        desc: "You see the sender, tone, email content, and the planned reply"
+        desc: "You see the sender, tone, email content, and the planned reply — no inbox switching"
       - step: 4
         label: "Write 'ok' or a correction"
         desc: "One word to send it — or type any edit to improve the draft"
@@ -102,6 +42,36 @@ sections:
       - step: 6
         label: "Reply sent"
         desc: "Email goes out, pending data clears, inbox stays clean"
+
+  - title: "The payoff"
+    type: cards
+    items:
+      - icon: Clock
+        title: "5 min → 30 sec per reply"
+        desc: "20 emails/day × 4.5 min saved = 90 min returned daily. That's 7.5 hours a week — nearly a full working day."
+      - icon: Globe
+        title: "Auto language detection"
+        desc: "Received in English? Replies in English. In Ukrainian? In Ukrainian. No extra configuration needed."
+      - icon: RefreshCw
+        title: "Infinite regeneration"
+        desc: "Write any correction instead of 'ok' — the AI rewrites with full original context preserved. No limit on loops."
+      - icon: Shield
+        title: "No accidental sends"
+        desc: "Two-flow architecture makes it physically impossible to send without your explicit approval."
+
+  - title: "What's under the hood"
+    type: cards
+    items:
+      - icon: Zap
+        title: "n8n — two workflows"
+        desc: "Gmail trigger flow and Telegram trigger flow connected via shared static data. Each runs independently."
+      - icon: Brain
+        title: "GPT-4o via OpenRouter"
+        desc: "Structured output parser extracts email fields reliably. Regeneration agent takes previous draft + correction as context."
+      - icon: Database
+        title: "Static data as state"
+        desc: "n8n workflow static data stores the pending email between flows — no external database needed."
+
   - title: "Free. No catch."
     type: callout
     body: "The workflow JSON is open — anyone can import it into their n8n instance and connect their own Gmail and Telegram accounts."

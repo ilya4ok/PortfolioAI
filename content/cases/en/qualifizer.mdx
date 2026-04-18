@@ -16,86 +16,66 @@ features:
   - { icon: "Mic", title: "Voice input", desc: "Describe what you want out loud. Voice transcribed via Whisper, processed like text. No typing required." }
   - { icon: "Reply", title: "Iterative refinement", desc: "Reply to any generated image to refine it. The bot loads the original context and regenerates with your adjustment." }
 sections:
-  - title: "The problem with content creation today"
+  - title: "The problem"
     type: text
-    body: "You write a post in ChatGPT. Then you open Midjourney in Discord to generate a matching image — but Midjourney doesn't know what the post says, so you copy-paste text into the prompt manually. The image comes out wrong. You edit the prompt, regenerate. Meanwhile you need to edit an existing photo — that's a third app. Every tool is an island. Context gets lost at every handoff. The work itself takes 5 minutes. The tool-switching takes 30."
+    body: "You write a post, then open Midjourney to generate a matching image — but Midjourney doesn't know the post, so you copy-paste text manually. Image comes out wrong. You edit the prompt, regenerate. Then you need to edit an existing photo — that's a third app. Every tool is an island. The work takes 5 minutes. The switching takes 30."
 
-  - title: "One chat. Full context."
-    type: text
-    body: "Qualifizer lives in Telegram. You write a post. You reply to it: 'make an image for this post.' The bot reads the post, generates an image that matches the content and tone. You reply: 'make it darker, more dramatic.' It regenerates with that instruction applied to the original context. You want to edit a photo you already have? Send it, describe the edit. Everything stays in one conversation. The context never resets."
-
-  - title: "How image generation works"
+  - title: "How it works"
     type: split
     screenshot: "/cases/qualifizer/workflow-main.png"
     steps:
       - step: 1
-        label: "You describe what you need"
-        desc: "Text, voice, or reply to an existing post. Any input works."
+        label: "Describe what you need"
+        desc: "Text, voice message, or reply to an existing post — any input works"
       - step: 2
-        label: "Context is loaded"
-        desc: "If you replied to a post — the bot loads its content. If you referenced 'that image' — it finds the last relevant task."
+        label: "Context loaded"
+        desc: "Replied to a post? Bot loads its content. Referenced 'that image'? It finds the last relevant task from Supabase"
       - step: 3
         label: "Intent classified"
         desc: "Gemini Flash: is this image_gen or image_edit? Which source context applies?"
       - step: 4
         label: "Prompt enhanced by AI"
-        desc: "Your instruction combined with the source context → AI writes a detailed generation prompt."
+        desc: "Your instruction + source context → AI writes a detailed professional generation prompt"
       - step: 5
-        label: "Flux Pro generates"
-        desc: "Flux Pro ultra model renders the image. Result sent directly to Telegram."
-    
+        label: "Result sent to Telegram"
+        desc: "Flux Pro ultra renders and sends directly to your chat. Reply to refine"
+
   - title: "Image editing — AI sees the photo"
     type: text
     screenshot: "/cases/qualifizer/workflow-image.png"
-    body: "Send any photo with an instruction: 'remove the background', 'make it look cinematic', 'add dramatic lighting'. Gemini 2.5 Flash with vision capability reads the photo and your instruction together — and writes a professional editing prompt. NanoBanana API applies the edit. The result lands in your Telegram chat. You can keep refining by replying to the output."
+    body: "Send any photo with an instruction: 'remove the background', 'make it look cinematic', 'add dramatic lighting'. Gemini 2.5 Flash with vision reads the photo and your instruction together — writes a professional editing prompt. NanoBanana API applies the edit. Result lands in Telegram. Reply to keep refining."
 
-  - title: "Why context-aware generation beats a standalone tool"
+  - title: "The payoff"
     type: cards
     items:
       - icon: BookOpen
         title: "Knows your post"
-        desc: "Reply to any text you wrote — the bot reads it before generating. The image matches the topic, tone, and key message automatically."
-      - icon: Forward
-        title: "Knows forwarded content"
-        desc: "Forward an article or post from anywhere. Say 'make an image for this.' Bot reads the full text and generates accordingly."
+        desc: "Reply to any text you wrote — the bot reads it before generating. Image matches the topic, tone, and key message automatically."
       - icon: History
-        title: "Knows what you refined before"
-        desc: "Each task is stored in Supabase. Reply to any output and the bot picks up exactly where you left off — no re-explaining."
+        title: "Remembers what you refined"
+        desc: "Each task stored in Supabase. Reply to any previous output and the bot picks up exactly where you left off."
       - icon: Mic
         title: "Voice works too"
-        desc: "Record a voice message: 'I need a dark moody image of a city at night for my post about AI in finance.' Whisper transcribes, bot generates."
-
-  - title: "Who gets the most value"
-    type: cards
-    items:
-      - icon: Users
-        title: "SMM managers"
-        desc: "Write posts and generate matching images in the same chat. No Midjourney subscription, no context-switching, no copy-pasting prompts. Post + image in one workflow."
-      - icon: Sparkles
-        title: "Content creators"
-        desc: "Shoot a product photo, send it to the bot, say 'remove background and add gradient.' Done in seconds. No Photoshop, no Canva, no extra apps."
-      - icon: Zap
-        title: "Solo founders"
-        desc: "You handle your own content. One tool for everything — write, visualize, iterate — without becoming a prompt engineer or learning five different interfaces."
+        desc: "Record: 'dark moody city at night for my AI finance post.' Whisper transcribes, bot generates."
       - icon: Clock
-        title: "The ROI"
-        desc: "30 minutes of tool-switching per piece of content → 5 minutes in one chat. At 10 pieces per week — that's 4 hours returned every week."
+        title: "30 min → 5 min per piece"
+        desc: "At 10 content pieces per week — that's 4 hours returned every week. In one Telegram chat."
 
   - title: "What's under the hood"
     type: cards
     items:
       - icon: Zap
         title: "n8n — orchestration"
-        desc: "Main router workflow (56 nodes) + Image Gen Agent + Image Edit Agent as separate sub-workflows. Each is independent and callable directly."
+        desc: "Main router workflow (56 nodes) + Image Gen Agent + Image Edit Agent as separate sub-workflows. Each callable directly."
       - icon: Brain
         title: "Gemini 2.5 Flash — router + vision"
-        desc: "Routes intent in the main workflow. Used again in Image Edit Agent to analyze the photo and write an enhanced editing prompt."
+        desc: "Routes intent in the main workflow. Used again in Image Edit Agent to analyze photos and write enhanced editing prompts."
       - icon: Image
         title: "Flux Pro ultra — generation"
         desc: "State-of-the-art image model. Prompt enhanced by AI before calling — results are coherent, not random."
       - icon: Database
         title: "Supabase — task memory"
-        desc: "Every task stored with full context: source content, prompt used, output. Reply context loaded via Postgres RPC for instant retrieval."
+        desc: "Every task stored with full context: source content, prompt used, output. Reply context loaded via Postgres RPC."
 
   - title: "Open. Modular. Extendable."
     type: callout

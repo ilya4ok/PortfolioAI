@@ -20,81 +20,25 @@ sections:
   - title: "How it started"
     type: text
     screenshot: /cases/forge/main.png
-    body: "Built the first version for myself — no sign-up, no database, just a tool shaped around how I work. Journal, AI coach, habit tracking with streaks and XP. I used it every day. Friends saw it and wanted the same."
-  - title: "The insight nobody asked for"
-    type: text
-    body: "6 user interviews about weekly planning. The answers kept circling back to something else — a need to process problems out loud, to think something heavy through without being immediately handed advice. Nobody said 'I need a psychologist mode'. They said 'I just need somewhere to put this'. That pattern — unnamed, but universal — became Psychology Mode. It wasn't in any spec. It came from listening past the obvious answer."
-  - title: "Why it works — the numbers"
+    body: "Built the first version for myself — no sign-up, no database, just a tool shaped around how I work. Used it every day. Friends saw it and wanted the same."
+
+  - title: "What you get"
     type: cards
     items:
-      - icon: Brain
-        title: "30 → 10 min to resolve any problem"
-        desc: "Baseline: 30 min average to process a difficult problem — journaling into a void, no feedback loop. Hypothesis: if the AI reads patterns across all entries, it surfaces the right question faster than a blank page. Result: one session to close what used to spiral for days."
       - icon: CalendarDays
-        title: "40 → 8 min weekly planning"
-        desc: "Baseline: 40-50 min every week — sorting tasks, deciding priorities, estimating time. All cognitive overhead, no real value. Hypothesis: natural language input removes the friction of deciding what matters. Result: describe your week, get back structured cards with time slots."
+        title: "Weekly planning in 8 min"
+        desc: "Describe tasks in plain language, get back structured cards with time slots. No manual sorting or prioritizing."
+      - icon: Brain
+        title: "Journal that actually responds"
+        desc: "AI reads patterns across all your entries — not just today's text. Surfaces what you're not seeing."
       - icon: Trophy
-        title: "Habits that compound, not collapse"
-        desc: "Most habit trackers are abandoned in week 2 — willpower isn't a system. Hypothesis: if progress is visible and rewarding (XP, streaks, badges), consistency becomes habitual instead of forced. Result: 30+ day streaks without thinking about it."
-      - icon: Clock
-        title: "−60 min/week — and it compounds"
-        desc: "Aggregate across journaling, planning, and problem-solving. An hour a week sounds small. Over a year — 52 hours returned to deep work. That's more than a full work week."
-  - title: "Schedule"
-    type: text
-    screenshot: /cases/forge/schedule.png
-    body: "Describe tasks in plain language, get back structured cards with time slots and XP rewards. Planning a week takes 8 minutes."
-  - title: "Activities"
-    type: text
-    screenshot: /cases/forge/activities.png
-    body: "Reusable activity cards — add to schedule in one tap. Frequency, duration, XP reward all set once."
-  - title: "Journal"
-    type: text
-    screenshot: /cases/forge/journal.png
-    body: "Daily entries with history going back months. The AI reads patterns across entries — not just today's text."
-  - title: "Psychology mode"
-    type: text
-    screenshot: /cases/forge/psychologist.png
-    body: "A space for reflection without judgment. The AI asks the right questions based on what you've written — notices patterns you don't."
-  - title: "Process"
-    type: process
-    steps:
-      - step: 0
-        label: "Before"
-        desc: "40–50 min on weekly planning. Journaling into a void — no patterns, no feedback, no loop."
-      - step: 1
-        label: "Personal logging"
-        desc: "One week tracking exactly where my time went. Built baselines before building anything."
-      - step: 2
-        label: "6 user interviews"
-        desc: "Talked to people about how they plan their weeks and where they lose time. The psychologist mode came directly from these — nobody asked for it, but everyone described needing it."
-      - step: 3
-        label: "v1 for myself"
-        desc: "localStorage, no auth, no database. Just the tool shaped around how I work."
-      - step: 4
-        label: "1 month daily use"
-        desc: "Used it every day before anyone else touched it. Every frustration became a fix."
-      - step: 5
-        label: "Beta round 1"
-        desc: "Watched users navigate the app live. The habit section layout changed completely — the original design confused everyone."
-      - step: 6
-        label: "Multi-user rebuild"
-        desc: "Supabase Auth, row-level security, real database. Each user gets their own isolated space."
-      - step: 7
-        label: "Beta round 2"
-        desc: "Final round. Edge cases fixed, email notifications added, streaks made reliable."
-      - step: 8
-        label: "Public launch"
-        desc: "Live domain, open access, real users writing in their journals."
-  - title: "What changed when I opened it up"
-    type: cards
-    items:
-      - icon: Users
-        title: "Personal data → user accounts"
-        desc: "Everything hardcoded for me became dynamic. Supabase Auth + row-level security — each user gets their own space, no one sees anyone else's journal."
-      - icon: Database
-        title: "localStorage → real database"
-        desc: "The original lived in localStorage. Supabase fixed the 'clear browser, lose months of data' problem. Weekly summaries and streak reminders added too."
-  - title: "After launch — real numbers"
+        title: "Habits that compound"
+        desc: "Streaks, XP, badges. Progress feels visible and earned — not like willpower grinding every morning."
+      - icon: MessageSquare
+        title: "Psychology mode"
+        desc: "Nobody asked for it — users described needing 'somewhere to put this.' It became the most used feature."
+
+  - title: "Real numbers after launch"
     type: cards
     items:
       - icon: Users
@@ -105,13 +49,24 @@ sections:
         desc: "Not just registered — actively writing entries every day. That's the real retention metric."
       - icon: Flame
         title: "15-day longest streak"
-        desc: "Achieved by a user who has logged in every single day since launch. The habit loop works."
-  - title: "What's next"
+        desc: "A user who has logged in every single day since launch. The habit loop works."
+      - icon: Clock
+        title: "−60 min/week recovered"
+        desc: "Aggregate across journaling, planning, problem-solving. Over a year — that's 52 hours returned to deep work."
+
+  - title: "What's under the hood"
     type: cards
     items:
-      - icon: Sparkles
-        title: "Auto-schedule from habits — in progress"
-        desc: "A user asked: if you add daily activities, they should just land in the weekly plan automatically. No manual entry. That's the next thing being built."
+      - icon: Brain
+        title: "Claude API — the brain"
+        desc: "Powers the journal coach, psychology mode, and schedule planner. Context window includes full entry history."
+      - icon: Database
+        title: "Supabase — data + auth"
+        desc: "Row-level security — each user's journal is fully isolated. Weekly summaries and streak reminders run on schedule."
+      - icon: Zap
+        title: "Next.js + TypeScript"
+        desc: "Full-stack app. Server components for data fetching, client components for real-time habit interactions."
+
   - title: "Free. No catch."
     type: callout
     body: "Forge is free to use — no paywalls, no trial limits, no credit card. Built it for myself, keeping it free for everyone."

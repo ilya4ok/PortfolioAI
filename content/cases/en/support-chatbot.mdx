@@ -18,54 +18,43 @@ features:
 sections:
   - title: "The problem"
     type: text
-    body: "~80% of e-commerce support queries are routine: what's the price, how do you deliver, can I pay in installments, what's the return policy. A human agent answers the same questions dozens of times a day — during business hours only. Customers write at 11pm and get a response the next morning. The solution isn't more agents. It's automating what doesn't require a human."
-
-  - title: "Why CAG, not RAG"
-    type: cards
-    body: "RAG (vector search) is the right tool for large unstructured documents where you don't know what will be asked. For a support bot, the knowledge is structured and fits in the context window — no chunking or vector search needed."
-    items:
-      - icon: Brain
-        title: "RAG — when knowledge is large and unstructured"
-        desc: "Thousands of documents, unknown queries. Chunks into vectors, searches semantically. Right for documentation, knowledge bases, books."
-      - icon: Zap
-        title: "CAG — when knowledge is structured and bounded"
-        desc: "Product catalog, prices, policies — fits in the system prompt. No vector database, no embedding step, no search errors. Simpler, faster, cheaper."
-      - icon: Database
-        title: "Plus: conversation memory"
-        desc: "RAG typically has no memory. This bot saves every exchange to Supabase and loads the full history on each call — the context never resets."
-      - icon: Shield
-        title: "Plus: no hallucinations from search"
-        desc: "Vector search can return the wrong chunk. The system prompt is static and controlled — the bot answers only from what you put in it."
+    body: "~80% of e-commerce support is routine: price, delivery, payment, return policy. A human agent answers the same questions dozens of times a day — during business hours only. Customers write at 11pm and wait until morning. The fix isn't more agents. It's automating what doesn't require a human — with store knowledge in the prompt, not a vector database."
 
   - title: "How it works"
-    type: text
-    screenshot: "/cases/support-chatbot/workflow.png"
-    body: "One workflow, seven nodes: chat trigger → system prompt → load history from Supabase → aggregate → format messages → Claude API call → save response. Every step is visible and editable."
-
-  - title: "Demo — real exchange"
     type: split
     screenshot: "/cases/support-chatbot/chat-demo.png"
     steps:
       - step: 1
         label: "Customer asks"
-        desc: "Is Nova Poshta delivery available?"
+        desc: "Any question about products, delivery, payment, or policy"
       - step: 2
         label: "History loaded from Supabase"
-        desc: "All previous turns pulled from `cag` table and formatted into messages array."
+        desc: "All previous turns pulled from the `cag` table and formatted into messages array"
       - step: 3
         label: "Claude reads context"
-        desc: "System prompt + history + new question passed to Claude Sonnet."
+        desc: "System prompt (store knowledge) + history + new question passed to Claude Sonnet"
       - step: 4
-        label: "Answer returned"
-        desc: "Delivery terms, timeline, free threshold — answered in seconds."
+        label: "Answer returned in < 2 sec"
+        desc: "Accurate, grounded reply — only from what's in the system prompt"
       - step: 5
         label: "Exchange saved"
-        desc: "Row written to Supabase: user message + AI response. Memory grows."
+        desc: "Row written to Supabase: user message + AI response. Memory grows with each turn"
 
-  - title: "Prompt caching — the cost layer"
-    type: text
-    screenshot: "/cases/support-chatbot/supabase-memory.png"
-    body: "The system prompt contains 1217 tokens of store knowledge. On the first call it's written to cache (cache_creation_input_tokens: 1217). On every subsequent call it's read from cache at 10% of the regular token price. That's 87% cheaper per cached call. For a bot handling hundreds of queries, it adds up fast. The extended-cache-ttl-2025-04-11 beta header extends the default 5-minute TTL to 1 hour — the cache stays warm across the whole working day. The Supabase table shows exactly what gets saved: each exchange as a row, both turns visible."
+  - title: "The payoff"
+    type: cards
+    items:
+      - icon: Zap
+        title: "< 2 sec response time"
+        desc: "Instant answers around the clock — no queue, no waiting, no human in the loop for routine queries."
+      - icon: Clock
+        title: "24/7 without breaks"
+        desc: "Works at 11pm, on weekends, on holidays. Coverage that no human team can match at this cost."
+      - icon: Sparkles
+        title: "−87% token cost"
+        desc: "System prompt cached for 1 hour via Anthropic's extended-cache-ttl beta. 87% cheaper per cached call."
+      - icon: Shield
+        title: "No hallucinations"
+        desc: "Claude answers only from what's in the system prompt. Wrong chunk problem doesn't exist — there are no chunks."
 
   - title: "What's under the hood"
     type: cards
@@ -75,10 +64,10 @@ sections:
         desc: "Single workflow: chat trigger → load system prompt → load history → format → call Claude → save response."
       - icon: Database
         title: "Supabase — memory"
-        desc: "Table `cag` stores every exchange. Return all rows on each call. No external session management needed."
+        desc: "Table `cag` stores every exchange. All rows returned on each call — no external session management needed."
       - icon: Brain
         title: "Claude Sonnet — the brain"
-        desc: "Direct API call via HTTP Request node. Full control over the request: model, temperature, caching headers, messages format."
+        desc: "Direct API call via HTTP Request node. Full control: model, temperature, caching headers, messages format."
       - icon: Sparkles
         title: "Prompt caching"
         desc: "System prompt cached 1h, last conversation turn cached 5min. Anthropic extended-cache-ttl beta enabled."

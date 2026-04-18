@@ -18,63 +18,47 @@ features:
 sections:
   - title: "The problem"
     type: text
-    body: "A new employee's first week: 20 questions, 400-page documentation, no one to ask without feeling like they're wasting someone's time. A support agent who needs the right answer from a product manual before the client hangs up. A developer searching 3 years of technical decisions in a wiki nobody maintains. Every organization has documents. Almost none of them are actually queryable."
-  - title: "Step 1 — loading the document"
-    type: text
-    screenshot: "/cases/rag-chat/ingestion-flow.png"
-    body: "Upload through a web form. n8n extracts the text, splits it into chunks of 2000 characters with 200-character overlaps, converts each chunk into a 1536-dimensional vector via OpenAI Embeddings, and stores everything in Qdrant. One PDF becomes hundreds of searchable points."
-  - title: "Step 2 — answering the question"
-    type: text
-    screenshot: "/cases/rag-chat/query-flow.png"
-    body: "The question is embedded into the same vector space. Qdrant retrieves the top 20 semantically closest chunks. All 20 are aggregated and passed to Claude with a strict instruction: answer only from the provided context. If the answer isn't there — say so."
-  - title: "The business case"
-    type: cards
-    items:
-      - icon: Users
-        title: "Employee onboarding"
-        desc: "New hire spends 2-3 days hunting for answers in documentation. With queryable docs: 30 seconds per question. 1-2 onboarding days saved per person."
-      - icon: MessageSquare
-        title: "Customer support"
-        desc: "Agents search product manuals manually — 3-5 min per lookup. Semantic search cuts that to seconds. More tickets closed, faster."
-      - icon: Database
-        title: "Internal knowledge base"
-        desc: "Company wikis go stale because nobody searches them. A queryable knowledge base gets used — and stops senior people from answering the same question twice."
-      - icon: BookOpen
-        title: "Technical documentation"
-        desc: "Developer searches 400-page API docs with Ctrl+F. Natural language query returns the exact section in seconds."
-  - title: "Two collections, two subjects"
-    type: cards
-    screenshot: "/cases/rag-chat/qdrant-collections.png"
-    items:
-      - icon: BookOpen
-        title: "Harry Potter"
-        desc: "366 chunks. A full novel indexed — ask about characters, plot, chapters, any detail from the book."
-      - icon: Database
-        title: "PostgreSQL docs"
-        desc: "5258 chunks. Official documentation — ask about syntax, functions, transactions, configuration."
-  - title: "Demo — it works on any text, even fiction"
-    type: text
-    screenshot: "/cases/rag-chat/chat-harry-potter.png"
-    body: "The pipeline doesn't distinguish between documentation and a novel. Harry Potter: 366 chunks, full book indexed. Ask about a chapter, a character, a plot detail — the system finds the right context with the same semantic precision it uses on technical docs. If it handles narrative text this well, structured documentation is easy."
-  - title: "Demo — ask the docs"
+    body: "Every organization has documents. Almost none of them are actually queryable. A new hire searches 400 pages of documentation for one answer. A support agent hunts through manuals while the customer waits. A developer runs Ctrl+F on a 3-year-old wiki nobody maintains."
+
+  - title: "How it works"
     type: split
     screenshot: "/cases/rag-chat/chat-postgresql.png"
     steps:
       - step: 1
-        label: "Question asked in Ukrainian"
-        desc: "What is a transaction in PostgreSQL and how to use it properly?"
+        label: "Upload a document"
+        desc: "PDF goes through a web form — n8n extracts text, splits into 2000-char chunks with 200-char overlaps"
       - step: 2
-        label: "5258 chunks searched"
-        desc: "The question is embedded and matched against the full PostgreSQL documentation"
+        label: "Embedded into vectors"
+        desc: "Each chunk becomes a 1536-dimensional vector via OpenAI Embeddings and stored in Qdrant"
       - step: 3
-        label: "Top 20 fragments retrieved"
-        desc: "The most relevant documentation sections are pulled from Qdrant"
+        label: "Question asked"
+        desc: "Your question is embedded into the same vector space"
       - step: 4
+        label: "Top 20 chunks retrieved"
+        desc: "Qdrant finds the 20 most semantically similar fragments from the document"
+      - step: 5
         label: "Claude reads the context"
         desc: "Strict prompt — answer only from the provided context, not from general knowledge"
-      - step: 5
+      - step: 6
         label: "Structured answer returned"
-        desc: "BEGIN/COMMIT/ROLLBACK explained with code examples, marked as from provided context"
+        desc: "Grounded response with references. If the answer isn't in the document — Claude says so"
+
+  - title: "The payoff"
+    type: cards
+    items:
+      - icon: Users
+        title: "2-3 onboarding days saved"
+        desc: "New hire spends days hunting answers in docs. With queryable docs: 30 seconds per question, not 30 minutes."
+      - icon: MessageSquare
+        title: "3-5 min → seconds per lookup"
+        desc: "Support agents search manuals manually. Semantic search cuts that to seconds — more tickets closed, faster."
+      - icon: BookOpen
+        title: "Works on any text"
+        desc: "Tested on PostgreSQL docs (5258 chunks) and Harry Potter (366 chunks) — same semantic precision on both."
+      - icon: Shield
+        title: "No hallucinations"
+        desc: "Claude answers strictly from retrieved context. If the answer isn't there — it says so. No invented facts."
+
   - title: "What's under the hood"
     type: cards
     items:
@@ -90,6 +74,7 @@ sections:
       - icon: Brain
         title: "Claude Sonnet — the brain"
         desc: "Reads aggregated context and generates structured answers. Strictly grounded — no hallucinations."
+
   - title: "Open source. Self-hostable."
     type: callout
     body: "Both workflow JSONs are open — import into your n8n instance, connect Qdrant and OpenAI credentials, start uploading documents."

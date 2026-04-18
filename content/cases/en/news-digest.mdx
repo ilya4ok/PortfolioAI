@@ -18,12 +18,30 @@ features:
 sections:
   - title: "The problem"
     type: text
-    body: "Following a topic means opening 10-15 sources every day, scanning headlines, deciding what's worth reading, reading it, and synthesizing it into something useful. That's 1-2 hours of work for maybe 10 minutes of actual insight. Most people either stop following entirely or drown in tabs. The information exists. The bottleneck is processing it."
+    body: "Following a topic means opening 10-15 sources every day, scanning headlines, deciding what's worth reading, then synthesizing into something useful. That's 1-2 hours of work for 10 minutes of actual insight. Most people either stop following or drown in tabs."
 
-  - title: "How the pipeline works"
-    type: text
+  - title: "How it works"
+    type: split
     screenshot: "/cases/news-digest/workflow-parser.png"
-    body: "Schedule fires every 12 hours. The parser reads RSS sources from Airtable, fetches each feed, filters to articles published in the last 24 hours, and deduplicates against every URL ever processed. Surviving articles (up to 8) go to ScrapingBee which extracts the full article text — not RSS snippets, the real content. Cleaned and aggregated, they get handed off to the writer workflow."
+    steps:
+      - step: 1
+        label: "Schedule fires every 12h"
+        desc: "Parser reads RSS sources from Airtable and fetches each feed"
+      - step: 2
+        label: "Articles filtered"
+        desc: "Only articles from the last 24h pass. Already-seen URLs deduplicated against Airtable history"
+      - step: 3
+        label: "Full content scraped"
+        desc: "ScrapingBee extracts complete article body — not RSS excerpts. Ads and banners stripped"
+      - step: 4
+        label: "AI analyst ranks"
+        desc: "All articles read, grouped by topic, scored 1-10. Marketing content filtered out"
+      - step: 5
+        label: "AI writer publishes"
+        desc: "Top picks become a structured longread: intro, numbered sections, key takeaways, sources"
+      - step: 6
+        label: "Delivered to Telegram + email"
+        desc: "Short digest to Telegram, full longread as GitHub Gist to email — no login required"
 
   - title: "Two AI agents, two jobs"
     type: cards
@@ -31,58 +49,51 @@ sections:
     items:
       - icon: Brain
         title: "AI Analyst"
-        desc: "Reads all articles. Groups them by topic. Ranks each by importance (1-10). Filters out marketing content. Returns structured JSON: which articles matter and why."
+        desc: "Reads all articles. Groups by topic. Ranks each 1-10 by importance. Filters marketing content. Returns structured JSON: which articles matter and why."
       - icon: BookOpen
         title: "AI Writer"
-        desc: "Takes the analyst's ranked selection. Writes a professional longread in Markdown — intro, numbered sections per story, key points, sources, directions to explore."
+        desc: "Takes the ranked selection. Writes a professional longread in Markdown — intro, numbered sections per story, key points, sources, further reading."
       - icon: Zap
         title: "Why two agents"
-        desc: "One prompt trying to both analyze and write produces mediocre output. Splitting roles forces the analyst to think before the writer writes. Better curation → better content."
+        desc: "One prompt trying to both analyze and write produces mediocre output. Splitting roles forces the analyst to think before the writer writes."
       - icon: Shield
         title: "Structured output"
-        desc: "Both agents return JSON via schema parsers. The pipeline doesn't break on unexpected formatting — it validates structure before passing data downstream."
+        desc: "Both agents return JSON via schema parsers. The pipeline doesn't break on unexpected formatting — structure validated before passing forward."
 
-  - title: "What you get in Telegram"
-    type: text
-    screenshot: "/cases/news-digest/telegram-output.png"
-    body: "A message arrives twice a day: date, topic, brief summary of each top story (2-3 sentences), reading time estimate, source count, and a link to the full longread. Enough to know what happened. Link if you want depth."
-
-  - title: "What you get in email"
-    type: text
-    screenshot: "/cases/news-digest/email-output.png"
-    body: "The full longread: intro, numbered sections per story, what happened and why it matters, sources linked inline, directions to explore further. Published as a GitHub Gist and sent via email. Readable anywhere, no login required."
-
-  - title: "The deduplication layer"
+  - title: "The payoff"
     type: cards
     items:
+      - icon: Clock
+        title: "1-2 hours → 0 minutes daily"
+        desc: "Source-checking and synthesis happens automatically, twice a day. You receive the output — nothing to monitor."
+      - icon: Send
+        title: "Right format for each context"
+        desc: "Telegram for a quick scan during the day. Email longread when you have time to go deep."
       - icon: Database
-        title: "Airtable stores every URL"
-        desc: "After processing, each article URL is saved with a timestamp. Next run loads the full list before touching any RSS feed."
-      - icon: Code
-        title: "URL normalization"
-        desc: "UTM parameters, trailing slashes, www prefixes — all stripped before comparison. The same article from different tracking links still registers as seen."
-      - icon: Shield
-        title: "In-run deduplication"
-        desc: "Multiple RSS feeds often share the same article. A Set-based check within each run catches duplicates before they ever hit ScrapingBee."
+        title: "Zero duplicates, ever"
+        desc: "URL normalization strips UTM params and trailing slashes. Same article from different tracking links still registers as seen."
+      - icon: Globe
+        title: "Any niche, same pipeline"
+        desc: "Replace RSS sources in Airtable — everything else works unchanged. Tech, finance, law, medicine."
 
   - title: "What's under the hood"
     type: cards
     items:
       - icon: Zap
         title: "n8n — orchestration"
-        desc: "Two workflows: parser calls writer via Execute Workflow node. Both are independent and reusable."
+        desc: "Two workflows: parser calls writer via Execute Workflow. Both independent and reusable."
       - icon: Globe
         title: "ScrapingBee — content extraction"
-        desc: "AI extraction rules specify exactly what to pull: article body only. Blocks ads, cookie banners, navigation, comments before they reach the AI."
+        desc: "AI extraction rules target article body only. Blocks ads, cookie banners, and nav before they reach the AI."
       - icon: Brain
         title: "Claude + Gemini — analysis and writing"
-        desc: "Analyst uses a fast model for structured analysis. Writer uses a capable model for long-form content. Right model for the right job."
+        desc: "Analyst uses a fast model for structured analysis. Writer uses a capable model for long-form content."
       - icon: Database
         title: "Airtable — memory and sources"
-        desc: "Two tables: RSS sources (which feeds to monitor) and processed URLs (what's been seen). Both editable without touching the workflow."
+        desc: "Two tables: RSS sources and processed URLs. Both editable without touching the workflow."
 
-  - title: "Open source. Adaptable to any niche."
+  - title: "Open source. Adapts to any niche."
     type: callout
-    body: "Both workflow JSONs are open. Swap the RSS sources in Airtable — the rest works unchanged. Tech news, finance, legal, medical — same pipeline, different feeds."
+    body: "Both workflow JSONs are open. Replace the RSS sources in Airtable — the rest works without changes. Tech news, finance, law, medicine — same pipeline, different feeds."
     cta: "Get the workflows"
 ---
