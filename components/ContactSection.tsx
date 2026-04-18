@@ -45,44 +45,35 @@ export default function ContactSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          variants={fadeUp}
-          className="mb-10"
-        >
-          <h2 className="text-text-primary font-semibold text-2xl md:text-3xl">{tr.heading}</h2>
-          <p className="text-text-secondary text-sm mt-2 max-w-md">{tr.sub}</p>
-        </motion.div>
-
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
           variants={fadeUp}
-          className="grid gap-4 sm:grid-cols-3 mb-10"
+          className="grid lg:grid-cols-[360px_1fr] gap-12 lg:gap-16 items-start"
         >
-          {socials.map(({ label, sub, href, icon }) => (
-            <a
-              key={label}
-              href={href}
-              target={href.startsWith('mailto') ? undefined : '_blank'}
-              rel="noopener noreferrer"
-              className="flex items-start gap-4 p-5 rounded-md border border-border-default bg-bg-secondary hover:border-border-active hover:bg-bg-tertiary transition-[border-color,background] duration-150"
-            >
-              <span className="text-text-secondary mt-0.5 shrink-0">{icon}</span>
-              <div>
-                <p className="text-text-primary text-sm font-medium">{label}</p>
-                <p className="text-text-secondary text-xs mt-0.5">{sub}</p>
-              </div>
-            </a>
-          ))}
-        </motion.div>
+          {/* Left: heading + socials */}
+          <div>
+            <h2 className="text-text-primary font-semibold text-2xl md:text-3xl mb-2">{tr.heading}</h2>
+            <p className="text-text-secondary text-sm mb-8 max-w-sm">{tr.sub}</p>
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeUp}
-        >
+            <div className="flex flex-col gap-3">
+              {socials.map(({ label, sub, href, icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 p-4 rounded-md border border-border-default bg-bg-secondary hover:border-border-active hover:bg-bg-tertiary transition-[border-color,background] duration-150"
+                >
+                  <span className="text-text-secondary shrink-0">{icon}</span>
+                  <div>
+                    <p className="text-text-primary text-sm font-medium">{label}</p>
+                    <p className="text-text-secondary text-xs mt-0.5">{sub}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: form */}
           <ContactForm lang={lang} />
         </motion.div>
       </div>
