@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import type { Variants } from 'framer-motion'
-import { Mail, Send } from 'lucide-react'
+import { Send } from 'lucide-react'
 import ContactForm from './ContactForm'
 import { useLang } from '@/components/LangProvider'
 import { t } from '@/lib/i18n'
@@ -32,12 +32,6 @@ const socials = [
     sub: 'Fast async comms',
     href: 'https://t.me/illia_usiuk',
     icon: <Send size={20} />,
-  },
-  {
-    label: 'usyuk01@gmail.com',
-    sub: 'For formal outreach',
-    href: 'mailto:usyuk01@gmail.com',
-    icon: <Mail size={20} />,
   },
 ]
 
