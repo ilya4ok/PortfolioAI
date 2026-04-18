@@ -171,16 +171,6 @@ export default function Cases({ activeCasesEn, activeCasesUk }: Props) {
             )
           })}
 
-          {previews.length > 0 && (
-            <motion.div variants={fadeUp}>
-              <GroupLabel label="Coming soon" />
-              <div className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                {previews.map((item) => (
-                  <InProgressCard key={item.title} item={item} />
-                ))}
-              </div>
-            </motion.div>
-          )}
         </motion.div>
       </div>
     </section>
