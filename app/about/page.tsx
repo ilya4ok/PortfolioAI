@@ -70,8 +70,16 @@ export default function AboutPage() {
             </section>
           </div>
 
-          {/* ── Right: skills + built with AI ── */}
+          {/* ── Right: photo + skills + built with AI ── */}
           <div className="lg:sticky lg:top-28 flex flex-col gap-6">
+
+            <div className="rounded-md overflow-hidden border border-border-default">
+              <img
+                src="/about/photo.jpg"
+                alt="Illia Usiuk"
+                className="w-full object-cover object-top aspect-[4/5]"
+              />
+            </div>
 
             <div className="rounded-md bg-bg-secondary border border-border-default p-6">
               <h2 className="font-semibold text-text-primary text-base mb-5">{tr.skills_heading}</h2>
