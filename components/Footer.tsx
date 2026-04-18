@@ -2,7 +2,6 @@
 
 import { Mail, Send } from 'lucide-react'
 import { useLang } from '@/components/LangProvider'
-import { t } from '@/lib/i18n'
 
 function LinkedinIcon({ size = 18 }: { size?: number }) {
   return (
@@ -21,14 +20,13 @@ function GithubIcon({ size = 18 }: { size?: number }) {
 }
 
 export default function Footer() {
-  const { lang } = useLang()
-  const tr = t[lang].footer
+  const { lang: _ } = useLang()
 
   return (
     <footer className="border-t border-border-default mt-auto">
       <div className="max-w-[1400px] mx-auto px-6 py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <p className="text-text-disabled text-sm">
-          © {new Date().getFullYear()} Illia Usiuk · {tr.copy}
+          © {new Date().getFullYear()} Illia Usiuk
         </p>
         <div className="flex items-center gap-4">
           <a
