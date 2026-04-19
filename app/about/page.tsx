@@ -96,7 +96,7 @@ export default function AboutPage() {
 
             <div className="rounded-md overflow-hidden border border-border-default">
               <img
-                src="/photo.png.png"
+                src="/photo.png"
                 alt="Illia Usiuk"
                 className="w-full object-cover object-top aspect-[4/5]"
               />
