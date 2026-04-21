@@ -73,10 +73,6 @@ export default function AboutPage() {
               </div>
             </section>
 
-            <section>
-              <h2 className="font-semibold text-text-primary text-xl mb-4">{tr.path_heading}</h2>
-              <p className="text-text-secondary leading-relaxed">{tr.path_body}</p>
-            </section>
           </div>
 
           {/* ── Right: photo + skills + built with AI ── */}
