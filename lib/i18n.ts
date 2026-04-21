@@ -51,7 +51,7 @@ export const t = {
     about: {
       label: 'Illia Usiuk · AI Specialist',
       heading: 'About',
-      intro: "Started in design — product, UX, e-commerce — then moved fully into AI automation. Building on n8n, Make, and Claude API: agents that route data, pipelines connected to real products, workflows that replace manual handoffs. Design background means I test ideas with real users before spending weeks building the wrong thing.",
+      intro: "Started in design — product, UX, e-commerce — then moved fully into AI automation. Building on n8n, Make, and Claude API: agents that route data, pipelines connected to real products, workflows that replace manual handoffs. Design background means I define success metrics before building — clear inputs, clear outputs, measurable outcomes.",
       what_heading: 'What I build',
       what_body: "Automation workflows on n8n and Make, AI agents that process and classify data, LLM pipelines integrated into real products via API. I move fast from idea to working prototype — days, not weeks — then follow through to actual team adoption.",
       cv: 'Download CV',
@@ -146,7 +146,7 @@ export const t = {
     about: {
       label: 'Іллія Усюк · AI Спеціаліст',
       heading: 'Про мене',
-      intro: 'Починав у дизайні — продукт, UX, e-commerce — потім повністю перейшов в AI автоматизацію. Будую на n8n, Make та Claude API: агенти що маршрутизують дані, пайплайни підключені до реальних продуктів, воркфлоу що замінюють ручні передачі. Дизайнерський бекграунд означає що тестую ідеї з реальними користувачами до того як витрачати тижні на побудову не того.',
+      intro: 'Починав у дизайні — продукт, UX, e-commerce — потім повністю перейшов в AI автоматизацію. Будую на n8n, Make та Claude API: агенти що маршрутизують дані, пайплайни підключені до реальних продуктів, воркфлоу що замінюють ручні передачі. Дизайнерський бекграунд означає що визначаю метрики успіху до початку будови — чіткі входи, чіткі виходи, вимірювані результати.',
       what_heading: 'Що я будую',
       what_body: 'Воркфлоу автоматизації на n8n та Make, AI агенти що обробляють і класифікують дані, LLM пайплайни інтегровані в реальні продукти через API. Швидко рухаюсь від ідеї до робочого прототипу — дні, а не тижні — і доводжу до реального адопшну командою.',
       cv: 'Завантажити CV',
