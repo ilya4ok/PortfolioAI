@@ -3,7 +3,6 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import CustomCursor from '@/components/CustomCursor'
-import { ExternalLink } from 'lucide-react'
 import { useLang } from '@/components/LangProvider'
 import { t } from '@/lib/i18n'
 
@@ -40,17 +39,6 @@ export default function AboutPage() {
               <p className="text-text-secondary leading-relaxed">{tr.what_body}</p>
             </section>
 
-            <div className="mb-10">
-              <a
-                href="https://drive.google.com/drive/folders/YOUR_CV_FOLDER_ID"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md border border-border-active text-text-primary text-sm font-medium hover:bg-bg-tertiary transition-colors duration-150"
-              >
-                {tr.cv}
-                <ExternalLink size={14} />
-              </a>
-            </div>
 
             <section className="mb-10">
               <h2 className="font-semibold text-text-primary text-xl mb-6">{tr.how_heading}</h2>
