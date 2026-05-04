@@ -37,7 +37,7 @@ const fadeUp: Variants = {
 
 const GROUPS = [
   { key: 'product',       slugs: ['forge'] },
-  { key: 'content',       slugs: ['qualifizer', 'news-digest'] },
+  { key: 'content',       slugs: ['ai-media-content', 'news-digest'] },
   { key: 'communication', slugs: ['email-assistant', 'support-chatbot'] },
   { key: 'knowledge',     slugs: ['rag-chat'] },
 ] as const

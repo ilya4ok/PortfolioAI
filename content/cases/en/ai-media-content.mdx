@@ -1,0 +1,81 @@
+---
+slug: ai-media-content
+title: AI Creative Strategy System
+description: Raw idea → production-ready Creative Package. A 10-stage Python pipeline that researches, scores angles, writes scripts, builds image prompts, and generates images — with 2 QA gates and deterministic revision routing.
+metric: Raw idea → Creative Package in minutes
+tools: ["Python", "Claude API", "OpenAI gpt-image-2", "FastAPI", "JSON Schema"]
+icon: Clapperboard
+status: active
+highlights:
+  - { value: "3-5 hrs → min", label: "manual content strategy compressed to one run" }
+  - { value: "2 QA gates", label: "weighted scoring before and after image generation" }
+  - { value: "10 stages", label: "research → angles → scripts → images → package" }
+features:
+  - { icon: "Clapperboard", title: "End-to-end pipeline", desc: "From raw idea to a full Creative Package with research, scripts, and AI-generated images — no manual steps in between." }
+  - { icon: "Shield", title: "2 QA gates", desc: "Pre-review scores the strategy before image generation. Final review vision-checks actual images. Both use weighted scoring — approval requires a threshold." }
+  - { icon: "RefreshCw", title: "Deterministic revision routing", desc: "Gate verdict maps directly to the specific stage that needs fixing. No ambiguity about where a revision loop starts." }
+  - { icon: "Database", title: "JSON Schema contracts", desc: "Every stage validates its output before passing it downstream. Schema failure routes to deterministic fallback — the pipeline never crashes." }
+sections:
+  - title: "The problem"
+    type: text
+    body: "Creating content for video takes 3-5 hours per piece — not because the work is hard, but because it's fragmented. Researching angles in one tab. Writing scripts in another. Generating image prompts manually. Reviewing outputs against the original brief with no automated check. Each handoff between steps loses context. The result: production-ready content is slow to ship not because of creativity, but because of coordination."
+
+  - title: "How it works"
+    type: split
+    steps:
+      - step: 1
+        label: "Intake"
+        desc: "Raw idea string parsed into structured brief: topic, content format, platform, target emotion, tone"
+      - step: 2
+        label: "Research + Angles"
+        desc: "Claude researches the topic and generates N content angles — each with approach, core message, and hook direction"
+      - step: 3
+        label: "Angle scoring"
+        desc: "Each angle scored across virality potential, originality, and feasibility. Best angle selected for production"
+      - step: 4
+        label: "Scripts + Prompt pack"
+        desc: "Scripts written for selected angle with scene breakdown. Image prompts built per scene with style and emotional beat"
+      - step: 5
+        label: "Pre-review gate"
+        desc: "Claude scores the full package across 6 criteria (strategic fit, hook quality, script, prompts, risk, production readiness). Below threshold → revision routed to specific stage"
+      - step: 6
+        label: "Image generation + Final review"
+        desc: "gpt-image-2 generates scene images. Claude vision reads the actual images and scores them for emotional clarity, script match, and stock-photo risk"
+
+  - title: "The payoff"
+    type: cards
+    items:
+      - icon: Clock
+        title: "3-5 hours → minutes"
+        desc: "Manual content strategy per video — research, angles, script, prompts — compressed into one automated run."
+      - icon: Shield
+        title: "Revision, not retry"
+        desc: "Gate verdict routes directly to the stage that needs fixing. Full re-run only when strictly necessary."
+      - icon: Database
+        title: "Schema-validated at every stage"
+        desc: "Broken output is caught before it propagates downstream. Fallback scoring kicks in if LLM is unavailable — no crashes."
+      - icon: Brain
+        title: "Vision-augmented QA"
+        desc: "Final review sends actual generated images to Claude as base64. Quality check is on pixels, not just on text descriptions."
+
+  - title: "What's under the hood"
+    type: cards
+    items:
+      - icon: Brain
+        title: "Claude Sonnet — reasoning"
+        desc: "Handles research, angle scoring, script writing, pre-review, and final review. Strict prompts keep output schema-compatible."
+      - icon: Sparkles
+        title: "OpenAI gpt-image-2 — images"
+        desc: "Generates scene images from structured prompts. Each image tracked with status, prompt reference, and file path."
+      - icon: Zap
+        title: "FastAPI — interface"
+        desc: "HTTP API to submit ideas and retrieve Creative Packages. Each run gets a unique ID; artifacts versioned per run."
+      - icon: Database
+        title: "JSON Schema — contracts"
+        desc: "Every stage output validated against schema. Fallback scoring computed deterministically if LLM call fails — pipeline always returns something."
+
+  - title: "Open source."
+    type: callout
+    body: "Full pipeline source available — intake to output, including schemas, prompts, and fallback logic."
+    cta: "View on GitHub"
+---
