@@ -192,8 +192,8 @@ export default async function CasePage({ params }: { params: Promise<Params> }) 
                       </div>
                     )}
 
-                    {/* screenshot (non-split sections) */}
-                    {section.screenshot && section.type !== 'split' && (
+                    {/* screenshot (non-split, non-callout sections) */}
+                    {section.screenshot && section.type !== 'split' && section.type !== 'callout' && (
                       <div className="mt-4 rounded-lg overflow-hidden border border-border-default">
                         <img
                           src={section.screenshot}
@@ -205,20 +205,25 @@ export default async function CasePage({ params }: { params: Promise<Params> }) 
 
                     {/* callout */}
                     {section.type === 'callout' && (
-                      <div className="rounded-md border border-accent/30 bg-accent/5 p-6 flex flex-col sm:flex-row sm:items-center gap-4">
-                        <div className="flex-1">
-                          <p className="text-text-primary font-semibold text-base mb-1">{section.title}</p>
-                          <p className="text-text-secondary text-sm leading-relaxed">{section.body}</p>
-                        </div>
-                        {section.cta && (
-                          <a
-                            href={section.cta_href ?? '/#contact'}
-                            {...(section.cta_href ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                            className="inline-flex items-center justify-center h-10 px-5 rounded-md bg-accent text-white text-sm font-medium hover:bg-[#5B3EEF] transition-colors duration-200 flex-shrink-0"
-                          >
-                            {section.cta}
-                          </a>
+                      <div className="rounded-md border border-accent/30 bg-accent/5 overflow-hidden">
+                        {section.screenshot && (
+                          <img src={section.screenshot} alt={section.title} className="w-full h-auto block" />
                         )}
+                        <div className="p-6 flex flex-col sm:flex-row sm:items-center gap-4">
+                          <div className="flex-1">
+                            <p className="text-text-primary font-semibold text-base mb-1">{section.title}</p>
+                            <p className="text-text-secondary text-sm leading-relaxed">{section.body}</p>
+                          </div>
+                          {section.cta && (
+                            <a
+                              href={section.cta_href ?? '/#contact'}
+                              {...(section.cta_href ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                              className="inline-flex items-center justify-center h-10 px-5 rounded-md bg-accent text-white text-sm font-medium hover:bg-[#5B3EEF] transition-colors duration-200 flex-shrink-0"
+                            >
+                              {section.cta}
+                            </a>
+                          )}
+                        </div>
                       </div>
                     )}
                   </div>
