@@ -242,7 +242,7 @@ export default async function CasePage({ params }: { params: Promise<Params> }) 
 
             {/* Features grid */}
             {c.features && c.features.length > 0 && (
-              <div className="mt-8 grid sm:grid-cols-2 gap-3">
+              <div className="mt-12 grid sm:grid-cols-2 gap-3">
                 {c.features.map((f, i) => {
                   const Icon = ICON_MAP[f.icon] ?? Zap
                   return (
