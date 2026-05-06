@@ -192,14 +192,15 @@ export default async function CasePage({ params }: { params: Promise<Params> }) 
                       </div>
                     )}
 
-                    {/* screenshot (non-split, non-callout sections) */}
+                    {/* screenshot(s) (non-split, non-callout sections) */}
                     {section.screenshot && section.type !== 'split' && section.type !== 'callout' && (
                       <div className="mt-4 rounded-lg overflow-hidden border border-border-default">
-                        <img
-                          src={section.screenshot}
-                          alt={section.title}
-                          className="w-full h-auto block"
-                        />
+                        <img src={section.screenshot} alt={section.title} className="w-full h-auto block" />
+                      </div>
+                    )}
+                    {section.screenshot2 && section.type !== 'split' && section.type !== 'callout' && (
+                      <div className="mt-4 rounded-lg overflow-hidden border border-border-default">
+                        <img src={section.screenshot2} alt={section.title} className="w-full h-auto block" />
                       </div>
                     )}
 

@@ -35,6 +35,7 @@ export interface CaseSection {
   cta?: string
   cta_href?: string
   screenshot?: string
+  screenshot2?: string
   items?: CaseSectionItem[]
   steps?: CaseProcessStep[]
 }
