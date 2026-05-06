@@ -7,10 +7,10 @@ export const t = {
     },
     hero: {
       role: 'AI Specialist',
-      line1: 'I build systems that run',
-      line2: 'without you',
-      cta_primary: 'Open to opportunities',
-      cta_secondary: 'View Cases',
+      line1: 'I build AI automations',
+      line2: 'that stick after the demo',
+      cta_primary: 'See my work',
+      cta_secondary: 'Let\'s talk',
       tools: ['Make', 'n8n', 'Claude API', 'No-code'],
       stats: [
         { value: '6+', label: 'Projects shipped' },
@@ -29,7 +29,7 @@ export const t = {
     },
     contact: {
       heading: 'Get in touch',
-      sub: "Currently open to new roles in AI, automation, and product. Let's talk.",
+      sub: "Design background + AI engineering. I take ideas to working prototypes — then stay until the team actually uses them.",
       social_linkedin: 'Best for professional intro',
       social_telegram: 'Fast async comms',
       label_name: 'Name',
@@ -102,10 +102,10 @@ export const t = {
     },
     hero: {
       role: 'AI Спеціаліст',
-      line1: 'Будую системи що працюють',
-      line2: 'без тебе',
-      cta_primary: 'Відкритий до пропозицій',
-      cta_secondary: 'Переглянути кейси',
+      line1: 'Будую AI автоматизації',
+      line2: 'що залишаються після демо',
+      cta_primary: 'Переглянути кейси',
+      cta_secondary: 'Поговоримо',
       tools: ['Make', 'n8n', 'Claude API', 'Без коду'],
       stats: [
         { value: '6+', label: 'Проектів запущено' },
@@ -124,7 +124,7 @@ export const t = {
     },
     contact: {
       heading: "Зв'яжіться зі мною",
-      sub: 'Відкритий до нових ролей в AI, автоматизації та продукті. Поговоримо.',
+      sub: 'Дизайн-бекграунд + AI інжиніринг. Від ідеї до прототипу — і далі до реального впровадження в команду.',
       social_linkedin: 'Найкраще для знайомства',
       social_telegram: 'Швидкий асинхронний зв\'язок',
       label_name: "Ім'я",
